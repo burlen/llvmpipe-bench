@@ -1,0 +1,351 @@
+LP_NUM_THREADS=1
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   40.79 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  47.54 sec
+Application 558687 resources: utime ~39s, stime ~1s, Rss ~113324, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=2
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   23.62 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  28.03 sec
+Application 558689 resources: utime ~43s, stime ~1s, Rss ~113312, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=3
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   18.53 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  22.97 sec
+Application 558691 resources: utime ~48s, stime ~1s, Rss ~113304, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=4
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   14.78 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  19.23 sec
+Application 558692 resources: utime ~48s, stime ~1s, Rss ~113348, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=5
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   12.48 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  18.13 sec
+Application 558694 resources: utime ~48s, stime ~1s, Rss ~113320, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=6
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   10.85 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  15.27 sec
+Application 558695 resources: utime ~48s, stime ~1s, Rss ~113312, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=7
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   11.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  15.61 sec
+Application 558696 resources: utime ~53s, stime ~1s, Rss ~113356, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=8
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed   10.52 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  17.73 sec
+Application 558697 resources: utime ~55s, stime ~1s, Rss ~113352, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=9
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    9.96 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  14.36 sec
+Application 558700 resources: utime ~56s, stime ~1s, Rss ~113364, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=10
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    9.47 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.98 sec
+Application 558703 resources: utime ~55s, stime ~1s, Rss ~113372, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=11
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    9.35 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.97 sec
+Application 558704 resources: utime ~57s, stime ~1s, Rss ~113408, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=12
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.87 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.34 sec
+Application 558705 resources: utime ~56s, stime ~1s, Rss ~113384, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=13
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.61 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.06 sec
+Application 558706 resources: utime ~57s, stime ~1s, Rss ~113436, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=14
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    7.95 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.49 sec
+Application 558707 resources: utime ~54s, stime ~1s, Rss ~113420, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=15
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    7.83 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.25 sec
+Application 558712 resources: utime ~54s, stime ~1s, Rss ~113432, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=16
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.06 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.52 sec
+Application 558714 resources: utime ~57s, stime ~1s, Rss ~113412, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=17
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.55 sec
+Application 558717 resources: utime ~56s, stime ~1s, Rss ~113416, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=18
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.02 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.45 sec
+Application 558718 resources: utime ~56s, stime ~1s, Rss ~113420, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=19
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.11 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.40 sec
+Application 558720 resources: utime ~57s, stime ~1s, Rss ~113440, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=20
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.28 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.76 sec
+Application 558722 resources: utime ~58s, stime ~1s, Rss ~113436, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=21
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.15 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.55 sec
+Application 558726 resources: utime ~57s, stime ~1s, Rss ~113472, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=22
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.19 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.67 sec
+Application 558728 resources: utime ~57s, stime ~1s, Rss ~113456, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=23
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.18 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  12.69 sec
+Application 558729 resources: utime ~56s, stime ~1s, Rss ~113456, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=24
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.68 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.72 sec
+Application 558730 resources: utime ~60s, stime ~2s, Rss ~113484, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=25
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.81 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.37 sec
+Application 558731 resources: utime ~60s, stime ~2s, Rss ~113500, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=26
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.78 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.38 sec
+Application 558732 resources: utime ~58s, stime ~2s, Rss ~113492, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=27
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.72 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.33 sec
+Application 558733 resources: utime ~58s, stime ~2s, Rss ~113468, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=28
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    9.02 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.48 sec
+Application 558737 resources: utime ~59s, stime ~2s, Rss ~113504, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=29
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.97 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.51 sec
+Application 558738 resources: utime ~58s, stime ~2s, Rss ~113528, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=30
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.70 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.18 sec
+Application 558739 resources: utime ~57s, stime ~2s, Rss ~113488, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=31
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.64 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.17 sec
+Application 558740 resources: utime ~58s, stime ~2s, Rss ~113516, inblocks ~10079, outblocks ~22866
+
+
+LP_NUM_THREADS=32
+Test project /usr/common/graphics/ParaView/builds/VTK-next
+    Start 1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff
+1/1 Test #1002: vtkRenderingHybridOpenGLCxx-SurfaceLICPlanarVectorNormalizeOff ...   Passed    8.94 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  13.45 sec
+Application 558741 resources: utime ~59s, stime ~2s, Rss ~113544, inblocks ~10079, outblocks ~22866
+

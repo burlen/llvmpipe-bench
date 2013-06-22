@@ -1,0 +1,32 @@
+#PBS -S /bin/bash
+#PBS -j eo
+#PBS -V
+
+momhost=`/bin/hostname`
+
+source $PV_HOME/modules-gnu.sh
+#module list
+
+echo "PV_NCPUS=$PV_NCPUS"
+echo "PV_NPSOCK=$PV_NPSOCK"
+echo "PV_WKD=$PV_WKD"
+echo "PV_SCRIPT=$PV_SCRIPT"
+echo "PV_PORT=$PV_PORT"
+echo "PV_TIME=$PV_TIME"
+echo "PV_COMPOSITE_STRATEGY=$PV_COMPOSITE_STRATEGY"
+echo "PV_LOGFILE=$PV_LOGFILE"
+
+export LP_NUM_THREADS=4
+echo "LP_NUM_THREADS=$LP_NUM_THREADS"
+
+wkd=$PV_WKD/scaling-$PV_NCPUS
+mkdir -p $wkd
+cd $wkd
+
+echo "PV_NCPUS=$PV_NCPUS" >> $PV_LOGFILE
+echo "LP_NUM_THREADS=$LP_NUM_THREADS" >> $PV_LOGFILE
+
+$PV_HOME/next/bin/pvpython $PV_SCRIPT &
+sleep 10s
+
+aprun -b -n $PV_NCPUS -S $PV_NCPUS_PER_SOCKET -d 1 -j 2 -cc numa_node $PV_HOME/next/bin/pvserver --reverse-connection --server-port=$PV_PORT --client-host=$momhost

@@ -1,0 +1,11 @@
+# Thu Jun 13 16:10:16 2013
+actual comm cost=0
+0 RenderGeometry 1.37116e+09 1.37116e+09 1071.64
+0 GatherVectors 1.37116e+09 1.37116e+09 0.23846
+0 ComputeLIC 1.37116e+09 1.37116e+09 202.574
+0 ColorLIC 1.37116e+09 1.37116e+09 0.195466
+0 ContrastEnhance 1.37116e+09 1.37116e+09 0.148876
+0 DepthCopy 1.37116e+09 1.37116e+09 0.08131
+0 vtkSurfaceLICPainter::RenderInternal 1.37116e+09 1.37116e+09 1275.46
+0 DepthCopy 1.37117e+09 1.37117e+09 0.000292063
+0 vtkSurfaceLICPainter::RenderInternal 1.37117e+09 1.37117e+09 0.000578165

@@ -1,3 +1,4 @@
+<ColorMaps>
 <ColorMap name="kh-new-jaguar-rotue" space="Lab" indexedLookup="false">
   <Point x="2.03669e-07" o="0" r="0.870481" g="0.913771" b="0.832898"/>
   <Point x="0.000345288" o="0.062745" r="0.586923" g="0.887861" b="0.934005"/>
@@ -18,3 +19,4 @@
   <Point x="0.0055" o="1" r="1" g="0.898039" b="0.101961"/>
   <NaN r="0.498039" g="0" b="0"/>
 </ColorMap>
+</ColorMaps>

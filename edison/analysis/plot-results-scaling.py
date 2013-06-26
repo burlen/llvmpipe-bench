@@ -310,6 +310,7 @@ for k in sorted(khuewoce.keys()):
 #mpl.grid()
 #mpl.show()
 
+mpl.figure()
 mpl.loglog(khbce_x, khbce_t, 'g-', linewidth=2, label='B w/CE 2000 steps')
 mpl.loglog(khuece_x, khuece_t, 'c-', linewidth=2, label='Ue w/CE 4000 steps')
 mpl.loglog(khbwoce_x, khbwoce_t, 'r-', linewidth=2, label='B 1600 steps')
@@ -471,6 +472,7 @@ for k in sorted(prip.keys()):
   prip_x.append(k)
   prip_t.append(prip[k])
 
+mpl.figure()
 mpl.loglog(prip_x, prip_t, 'r-', linewidth=2, label='INPLACE')
 mpl.loglog(pripd_x, pripd_t, 'b-', linewidth=2, label='INPLACE_DISJOINT')
 mpl.title('Scaling of Compositing Methods\n1024^3 box at 1215x1090 res\nOS Mesa 8 Ranks per Node 4 threads',fontweight='bold')
@@ -565,6 +567,7 @@ groupPlots=[[],[],[],[],[],[],[],[],[],[],[]]
 
 ranks=np.arange(16)-0.5
 
+mpl.figure()
 mpl.subplot(121)
 groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
 i=1
@@ -676,6 +679,7 @@ groupPlots=[[],[],[],[],[],[],[],[],[],[],[],[]]
 
 ranks=np.arange(16)-0.5
 
+mpl.figure()
 mpl.subplot(121)
 groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
 i=1

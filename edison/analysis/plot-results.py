@@ -48,7 +48,6 @@ if 1:
   mpl.xlabel('LP_NUM_THREADS',fontweight='bold')
   mpl.grid()
 
-  #llvmpipe-1node-1rank.png  llvmpipe-1node-gant.png  llvmpipe-1node.png  llvmpipe-1proc.png
   fig = mpl.gcf()
   mpl.savefig('llvmpipe-1proc.png',dpi=200)
   mpl.savefig('llvmpipe-1proc-sm.png',dpi=80)

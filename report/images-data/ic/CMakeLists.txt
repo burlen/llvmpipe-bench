@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project(i2p)
+set(VTK_DIR "/work/ext/ParaView/sqtk-pv/vtk-build")
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
+add_executable(i2p MACOSX_BUNDLE ic.cpp)
+target_link_libraries(i2p ${VTK_LIBRARIES})

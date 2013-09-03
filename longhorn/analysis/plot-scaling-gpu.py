@@ -328,14 +328,14 @@ khuece_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
 khuece_mesa_tt = np.exp(khuece_mesa_cc[0]*(khuece_mesa_xx**2) + khuece_mesa_cc[1]*khuece_mesa_xx + khuece_mesa_cc[2])
 
 
-mpl.loglog(np.exp(khbce_gpu_xx), khbce_gpu_tt, 'r-', linewidth=2, label='2 x NV Quadro 5800 BCE2k')
+mpl.loglog(np.exp(khbce_gpu_xx), khbce_gpu_tt, 'r-', linewidth=2, label='NV Quadro 5800 BCE2k')
 mpl.loglog(np.exp(khbce_mesa_xx), khbce_mesa_tt, 'b-', linewidth=2, label='Gallium llvmpipe BCE22k')
-mpl.loglog(np.exp(khuece_gpu_xx), khuece_gpu_tt, 'g-', linewidth=2, label='2 x NV Quadro 5800 UeCE4k')
+mpl.loglog(np.exp(khuece_gpu_xx), khuece_gpu_tt, 'g-', linewidth=2, label='NV Quadro 5800 UeCE4k')
 mpl.loglog(np.exp(khuece_mesa_xx), khuece_mesa_tt, 'c-', linewidth=2, label='Gallium llvmpipe UeCE4k')
 mpl.legend(prop={'size': 9})
-mpl.loglog(khbce_gpu_x, khbce_gpu_t, 'r+', linewidth=2, label='2 x NV Quadro 5800 BCE2k')
+mpl.loglog(khbce_gpu_x, khbce_gpu_t, 'r+', linewidth=2, label='NV Quadro 5800 BCE2k')
 mpl.loglog(khbce_mesa_x, khbce_mesa_t, 'b+', linewidth=2, label='Gallium llvmpipe BCE22k')
-mpl.loglog(khuece_gpu_x, khuece_gpu_t, 'g+', linewidth=2, label='2 x NV Quadro 5800 UeCE4k')
+mpl.loglog(khuece_gpu_x, khuece_gpu_t, 'g+', linewidth=2, label='NV Quadro 5800 UeCE4k')
 mpl.loglog(khuece_mesa_x, khuece_mesa_t, 'c+', linewidth=2, label='Gallium llvmpipe UeCE4k')
 mpl.title('CPU vs GPU Scaling 222 M Tri. Slice at 2500x1050 res.',fontweight='bold')
 mpl.ylabel('time (sec)',fontweight='bold')
@@ -675,8 +675,8 @@ mpl.loglog(np.exp(prip_mesa_xx), prip_mesa_tt, 'b-', linewidth=2, label='Gallium
 mpl.loglog(np.exp(pripd_mesa_xx), pripd_mesa_tt, 'c-', linewidth=2, label='Gallium llvmpipe INPLACE_DISJOINT')
 mpl.legend(prop={'size': 9})
 
-mpl.loglog(prip_gpu_x, prip_gpu_t, 'r+', linewidth=2, label='Quadro 5800 INPLACE')
-mpl.loglog(pripd_gpu_x, pripd_gpu_t, 'g+', linewidth=2, label='Quadro 5800 INPLACE_DISJOINT')
+mpl.loglog(prip_gpu_x, prip_gpu_t, 'r+', linewidth=2, label='NV Quadro 5800 INPLACE')
+mpl.loglog(pripd_gpu_x, pripd_gpu_t, 'g+', linewidth=2, label='NV Quadro 5800 INPLACE_DISJOINT')
 mpl.loglog(prip_mesa_x, prip_mesa_t, 'b+', linewidth=2, label='Gallium llvmpipe INPLACE')
 mpl.loglog(pripd_mesa_x, pripd_mesa_t, 'c+', linewidth=2, label='Gallium llvmpipe INPLACE_DISJOINT')
 
@@ -697,7 +697,122 @@ else:
 
 
 
-#gant
+#inplace gant
+# mesa
+ip_ev=['RenderGeometry','GatherVectors','TransformVectors','Integrate1','ContrastEnhance1','EdgeEnahnce','Integrate2','ContrastEnhance2','ComputeLIC','ColorLIC','ContrastEnhanceC','DepthCopy','RenderInternal','DepthCopy','RenderInternal']
+ip_r0=[9.08836,0.465344,0.068629,6.71203,2.76863,0.110974,3.3967,1.51991,14.6399,0.137254,0.11577,0.0745132,24.6196,0.000128031,0.00031209]
+ip_r1=[4.84808,4.71319,0.062187,6.50192,2.98067,0.117237,3.25431,1.65574,14.6345,0.136736,0.116352,0.0744421,24.6223,0.000128031,0.000306129]
+ip_r2=[4.81037,4.75223,0.072006,6.3854,3.08613,0.110721,3.26322,1.65336,14.6331,0.137899,0.115264,0.0746741,24.6226,0.000123978,0.00030303]
+ip_r3=[9.08205,0.504243,0.062664,6.34711,3.10615,0.111166,3.25559,1.66094,14.6068,0.14214,0.112949,0.0727,24.6197,0.000117064,0.000247955]
+ip_r4=[4.9113,4.64433,0.0695629,4.64194,4.83799,0.112513,2.33586,2.57972,14.6397,0.138181,0.115692,0.073324,24.622,0.000129938,0.000319958]
+ip_r5=[9.10655,0.450602,0.063051,6.45127,3.03136,0.112294,3.26505,1.65072,14.6358,0.144375,0.108968,0.0739222,24.6191,0.000133038,0.000319958]
+ip_r6=[4.93471,4.62362,0.0620642,5.07079,4.41419,0.112172,2.59273,2.32319,14.6371,0.138102,0.11547,0.0737221,24.6221,0.000126839,0.000319958]
+ip_r7=[9.19545,0.357971,0.069155,5.06016,4.42013,0.112051,2.53252,2.38353,14.6397,0.14341,0.110058,0.0737841,24.6191,0.000123978,0.000319958]
+ip_r8=[4.80664,4.77416,0.0665321,6.88151,2.57571,0.110443,3.46481,1.45307,14.614,0.137567,0.115987,0.0748472,24.6231,0.000137091,0.000326872]
+ip_r9=[9.11398,0.461931,0.065474,8.08057,1.37995,0.110346,4.12393,0.794041,14.6165,0.146618,0.107118,0.074604,24.6201,0.000138044,0.000326872]
+ip_r10=[4.8108,4.77449,0.0677981,7.23413,2.21728,0.110342,3.77404,1.14394,14.6095,0.137571,0.116698,0.074048,24.623,0.000132084,0.000325918]
+ip_r11=[9.08462,0.491337,0.0630829,7.89621,1.56674,0.110828,3.94996,0.967544,14.6165,0.148154,0.105314,0.0747819,24.62,0.000134945,0.000326872]
+ip_r12=[4.89312,4.6935,0.0646389,8.75496,0.698964,0.111126,4.5605,0.356732,14.6088,0.148071,0.105657,0.0744421,24.6229,0.000118017,0.000250816]
+ip_r13=[9.10687,0.472364,0.061435,9.43484,0.027096,0.111291,4.91264,0.0044241,14.6137,0.144749,0.108864,0.074645,24.62,0.000136137,0.000298977]
+ip_r14=[4.9234,4.66215,0.0643651,6.15351,3.30186,0.110852,3.15588,1.76162,14.6099,0.137698,0.116167,0.0743721,24.6229,0.000130892,0.000318766]
+ip_r15=[9.12112,0.455557,0.067379,7.64393,1.81441,0.111309,3.81222,1.10483,14.6162,0.138743,0.114941,0.0746129,24.62,0.000130892,0.000317812]
+
+groups=(ip_ev[0:8]+ip_ev[9:12])
+ids=[0,1,2,3,4,5,6,7,9,10,11]
+groupData=[[],[],[],[],[],[],[],[],[],[],[]]
+groupColors=[[],[],[],[],[],[],[],[],[],[],[]]
+i=0
+while i<11:
+  groupData[i]=[ip_r0[ids[i]],
+      ip_r1[ids[i]],
+      ip_r2[ids[i]],
+      ip_r3[ids[i]],
+      ip_r4[ids[i]],
+      ip_r5[ids[i]],
+      ip_r6[ids[i]],
+      ip_r7[ids[i]],
+      ip_r8[ids[i]],
+      ip_r9[ids[i]],
+      ip_r10[ids[i]],
+      ip_r11[ids[i]],
+      ip_r12[ids[i]],
+      ip_r13[ids[i]],
+      ip_r14[ids[i]],
+      ip_r15[ids[i]]]
+  #print groups[i]
+  #print groupData[i]
+  j=i/10.0 #j=1.0-i/10.0
+  groupColors[i]=cm.Paired(j)
+  groupColors[i]=cm.Dark2(j)
+  #groupColors[i]=cm.Set1(j)
+  #groupColors[i]=cm.Set3(j)
+  i+=1
+
+groupDataBot=[[],[],[],[],[],[],[],[],[],[],[],[]]
+groupDataBot[0]=[0]*16
+i=1
+while i<11:
+  tmp0=groupDataBot[i-1]
+  tmp1=groupData[i-1]
+  tmp2=[sum(d) for d in (zip(*[tmp0,tmp1]))]
+  groupDataBot[i]=tmp2
+  #print
+  #print groups[i]
+  #print groupDataBot[i-1]
+  #print '+'
+  #print groupData[i-1]
+  #print '='
+  #print groupDataBot[i]
+  i+=1
+
+groupPlots=[[],[],[],[],[],[],[],[],[],[],[]]
+
+ranks=np.arange(16)-0.5
+
+fig = mpl.figure(figsize=(11,6))
+fig.suptitle('INPLACE Compositing Activity by Rank\n1024^3 box 12.6M tris at 1215x1090 res',fontweight='bold',fontsize='14')
+
+mpl.subplot(131)
+groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
+i=1
+while i<11:
+  groupPlots[i]=mpl.bar(ranks,groupData[i],bottom=groupDataBot[i],color=groupColors[i],linewidth=0)
+  i+=1
+
+mpl.subplots_adjust(right=1.125,hspace=0.05)
+mpl.title('Mesa3D Gallium llvmpipe',fontweight='bold',fontsize='12')
+mpl.xlabel('MPI Rank', fontweight='bold')
+mpl.xlim([-0.75, 15.5])
+#mpl.ylim([0, 140])
+mpl.ylabel('time (sec)', fontweight='bold')
+mpl.grid()
+
+#mpl.legend((groupPlots[0],
+#  groupPlots[1],
+#  groupPlots[2],
+#  groupPlots[3],
+#  groupPlots[4],
+#  groupPlots[5],
+#  groupPlots[6],
+#  groupPlots[7],
+#  groupPlots[8],
+#  groupPlots[9],
+#  groupPlots[10]),
+#  tuple(groups),
+#  prop={'size': 9},
+#  bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+#
+#mpl.subplots_adjust(top=0.85)
+#
+#if saveFig:
+#  fig = mpl.gcf()
+#  mpl.savefig('scaling-gant-inplace-composite-mesa.png',dpi=200)
+#  mpl.savefig('scaling-gant-inplace-composite-mesa-sm.png',dpi=80)
+#else:
+#  mpl.show()
+
+
+# gpu
 ip_ev=['RenderGeometry','GatherVectors','TransformVectors','Integrate1','ContrastEnhance1','EdgeEnahnce','Integrate2','ContrastEnhance2','ComputeLIC','ColorLIC','ContrastEnhanceC','DepthCopy','RenderInternal','DepthCopy','RenderInternal']
 #ip_ev=[RenderGeometry,GatherVectors,TransformVectors,Integrate1,ContrastEnhance1,EdgeEnahnce,Integrate2,ContrastEnhance2,ComputeLIC,ColorLIC,ContrastEnhance,DepthCopy,RenderInternal,DepthCopy,RenderInternal]
 ip_r0=[1.77957,0.871629,0.0675631,0.398228,1.85473,0.00509691,0.028306,1.13959,3.72624,0.0189431,0.0334148,0.000921965,6.64048,9.799e-05,0.000164032,]
@@ -769,8 +884,10 @@ groupPlots=[[],[],[],[],[],[],[],[],[],[],[]]
 
 ranks=np.arange(16)-0.5
 
-mpl.figure()
-mpl.subplot(121)
+#fig = mpl.figure()
+#fig.suptitle('INPLACE Compositing Activity by Rank')
+
+mpl.subplot(132)
 groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
 i=1
 while i<11:
@@ -778,7 +895,7 @@ while i<11:
   i+=1
 
 mpl.subplots_adjust(right=1.125,hspace=0.05)
-mpl.title('NVIDIA Quadro 5800\nINPLACE Compositing Activity by Rank\n1024^3 box at 1215x1090 res',fontweight='bold',fontsize='12')
+mpl.title('NVIDIA Quadro 5800',fontweight='bold',fontsize='12')
 mpl.xlabel('MPI Rank', fontweight='bold')
 mpl.xlim([-0.75, 15.5])
 #mpl.ylim([0, 140])
@@ -804,8 +921,8 @@ mpl.subplots_adjust(top=0.85)
 
 if saveFig:
   fig = mpl.gcf()
-  mpl.savefig('scaling-gant-inplace-composite-gpu.png',dpi=200)
-  mpl.savefig('scaling-gant-inplace-composite-gpu-sm.png',dpi=80)
+  mpl.savefig('scaling-gant-inplace-composite-gpu-mesa.png',dpi=200)
+  mpl.savefig('scaling-gant-inplace-composite-gpu-mesa-sm.png',dpi=80)
 else:
   mpl.show()
 
@@ -813,6 +930,120 @@ else:
 
 
 
+
+# inplace disjoint gant
+ipd_ev=['RenderGeometry','GatherVectors','TransformVectors','Integrate1','ContrastEnhance1','EdgeEnahnce','Integrate2','ContrastEnhance2','ComputeLIC','ScatterLIC','ColorLIC','ContrastEnhanceC','DepthCopy','RenderInternal','DepthCopy','RenderInternal']
+ipd_r0=[8.91797,0.601769,0.0635419,1.84561,2.53953,0.110742,0.777521,1.45316,6.85199,0.092078,0.14424,0.191144,0.0738831,16.9717,0.000136137,0.000329971]
+ipd_r1=[4.92925,4.59431,0.066004,3.39835,0.982242,0.110909,1.70336,0.527464,6.84999,0.093472,0.14265,0.191585,0.073487,16.9743,0.000138998,0.000329018]
+ipd_r2=[4.9315,4.59479,0.0716331,4.23472,0.137797,0.111129,2.11099,0.119599,6.84736,0.136953,0.144529,0.145461,0.0741901,16.9743,0.000121832,0.000329971]
+ipd_r3=[8.91755,0.599465,0.067857,2.12174,2.26124,0.11107,1.01767,1.213,6.85438,0.107586,0.144537,0.178611,0.0739009,16.9748,0.000138998,0.000329971]
+ipd_r4=[4.96553,4.53991,0.06198,4.23465,0.16693,0.112909,2.19732,0.0314591,6.86791,0.114938,0.141249,0.172966,0.072875,16.9752,0.000133991,0.000330925]
+ipd_r5=[8.9644,0.426501,0.0612562,2.90849,1.60667,0.112794,1.36779,0.860972,6.98006,0.0695629,0.141662,0.217778,0.0732632,16.9724,0.000135899,0.000330925]
+ipd_r6=[4.94552,4.5468,0.0640271,4.38753,0.024996,0.112293,2.22649,0.0028882,6.88087,0.115607,0.140987,0.172364,0.0732541,16.9753,0.000135899,0.000330925]
+ipd_r7=[8.98532,0.445062,0.0597808,3.63182,0.845057,0.112853,1.89043,0.338373,6.94057,0.0918601,0.141561,0.195476,0.0737171,16.9728,0.000134945,0.000330925]
+ipd_r8=[5.02773,4.48758,0.070585,2.93347,1.44953,0.110207,1.45454,0.777182,6.85785,0.109311,0.140168,0.176994,0.0746069,16.9742,0.000135183,0.000324011]
+ipd_r9=[9.11802,0.403861,0.060643,2.44935,1.93393,0.110468,1.16535,1.06586,6.84889,0.117005,0.151465,0.157903,0.074636,16.9712,0.000136852,0.000324011]
+ipd_r10=[4.96328,4.52834,0.063097,3.26931,1.14511,0.110412,1.65134,0.580301,6.88149,0.117031,0.146544,0.163713,0.0738938,16.9743,0.000135183,0.000324011]
+ipd_r11=[9.06269,0.369109,0.058207,2.78207,1.69512,0.110433,1.34769,0.883708,6.93886,0.095118,0.143659,0.188253,0.073993,16.9712,0.00013423,0.000324011]
+ipd_r12=[4.93606,4.55674,0.0215681,0.00266409,4.42866,9.05991e-06,0.00130582,2.36289,6.88088,0.125333,0.190043,0.108656,0.0759511,16.9731,0.000141859,0.000322104]
+ipd_r13=[9.02472,0.478832,0.0211291,0.00258207,4.41611,7.86781e-06,0.00127697,2.36292,6.8677,0.132735,0.18958,0.101828,0.0758371,16.9701,0.000131845,0.000323057]
+ipd_r14=[4.99745,4.46018,0.0628791,2.88413,1.56506,0.10922,1.31797,0.915068,6.91612,0.12137,0.143487,0.163317,0.074518,16.9758,0.000130892,0.000324965]
+ipd_r15=[9.01455,0.411515,0.0599511,2.84884,1.63286,0.108853,1.45859,0.774578,6.94522,0.104593,0.142938,0.179888,0.07476,16.9723,0.000124931,0.000323057]
+
+
+groups=(ipd_ev[0:8]+ipd_ev[9:13])
+ids=[0,1,2,3,4,5,6,7,9,10,11,12]
+groupData=[[],[],[],[],[],[],[],[],[],[],[],[]]
+groupColors=[[],[],[],[],[],[],[],[],[],[],[],[]]
+i=0
+while i<12:
+  groupData[i]=[ipd_r0[ids[i]],
+      ipd_r1[ids[i]],
+      ipd_r2[ids[i]],
+      ipd_r3[ids[i]],
+      ipd_r4[ids[i]],
+      ipd_r5[ids[i]],
+      ipd_r6[ids[i]],
+      ipd_r7[ids[i]],
+      ipd_r8[ids[i]],
+      ipd_r9[ids[i]],
+      ipd_r10[ids[i]],
+      ipd_r11[ids[i]],
+      ipd_r12[ids[i]],
+      ipd_r13[ids[i]],
+      ipd_r14[ids[i]],
+      ipd_r15[ids[i]]]
+  #print groups[i]
+  #print groupData[i]
+  j=i/11.0 #j=1.0-i/10.0
+  groupColors[i]=cm.Paired(j)
+  groupColors[i]=cm.Dark2(j)
+  #groupColors[i]=cm.Set1(j)
+  #groupColors[i]=cm.Set3(j)
+  i+=1
+
+groupDataBot=[[],[],[],[],[],[],[],[],[],[],[],[],[]]
+groupDataBot[0]=[0]*16
+i=1
+while i<12:
+  tmp0=groupDataBot[i-1]
+  tmp1=groupData[i-1]
+  tmp2=[sum(d) for d in (zip(*[tmp0,tmp1]))]
+  groupDataBot[i]=tmp2
+  #print
+  #print groups[i]
+  #print groupDataBot[i-1]
+  #print '+'
+  #print groupData[i-1]
+  #print '='
+  #print groupDataBot[i]
+  i+=1
+
+groupPlots=[[],[],[],[],[],[],[],[],[],[],[],[]]
+
+ranks=np.arange(16)-0.5
+
+fig = mpl.figure(figsize=(11,6))
+fig.suptitle('INPLACE_DISJOINT Compositing Activity by Rank\n1024^3 box 12.6M tris at 1215x1090 res',fontweight='bold',fontsize='14')
+mpl.subplot(131)
+
+groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
+i=1
+while i<12:
+  groupPlots[i]=mpl.bar(ranks,groupData[i],bottom=groupDataBot[i],color=groupColors[i],linewidth=0)
+  i+=1
+
+mpl.subplots_adjust(right=1.125,hspace=0.05)
+mpl.title('Mesa3D Gallium llvmpipe',fontweight='bold',fontsize='12')
+mpl.xlabel('MPI Rank', fontweight='bold')
+mpl.xlim([-0.75, 15.5])
+mpl.ylabel('time (sec)', fontweight='bold')
+mpl.grid()
+
+#mpl.legend((groupPlots[0],
+#  groupPlots[1],
+#  groupPlots[2],
+#  groupPlots[3],
+#  groupPlots[4],
+#  groupPlots[5],
+#  groupPlots[6],
+#  groupPlots[7],
+#  groupPlots[8],
+#  groupPlots[9],
+#  groupPlots[10],
+#  groupPlots[11]),
+#  tuple(groups),
+#  prop={'size': 9},
+#  bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+#
+#mpl.subplots_adjust(top=0.85)
+#
+#if saveFig:
+#  fig = mpl.gcf()
+#  mpl.savefig('scaling-gant-inplace-disjoint-composite-mesa.png',dpi=200)
+#  mpl.savefig('scaling-gant-inplace-disjoint-composite-mesa-sm.png',dpi=80)
+#else:
+#  mpl.show()
 
 ipd_ev=['RenderGeometry','GatherVectors','TransformVectors','Integrate1','ContrastEnhance1','EdgeEnahnce','Integrate2','ContrastEnhance2','ComputeLIC','ScatterLIC','ColorLIC','ContrastEnhanceC','DepthCopy','RenderInternal','DepthCopy','RenderInternal']
 #ipd_ev=[RenderGeometry,GatherVectors,TransformVectors,Integrate1,ContrastEnhance1,EdgeEnahnce,Integrate2,ContrastEnhance2,ComputeLIC,ScatterLIC,ColorLIC,ContrastEnhance,DepthCopy,RenderInternal,DepthCopy,RenderInternal]
@@ -885,8 +1116,8 @@ groupPlots=[[],[],[],[],[],[],[],[],[],[],[],[]]
 
 ranks=np.arange(16)-0.5
 
-mpl.figure()
-mpl.subplot(121)
+
+mpl.subplot(132)
 groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
 i=1
 while i<12:
@@ -894,7 +1125,7 @@ while i<12:
   i+=1
 
 mpl.subplots_adjust(right=1.125,hspace=0.05)
-mpl.title('NVIDIA Quadro 5800\nINPLACE_DISJOINT Compositing Activity by Rank\n1024^3 box at 1215x1090 res',fontweight='bold',fontsize='12')
+mpl.title('NVIDIA Quadro 5800',fontweight='bold',fontsize='12')
 mpl.xlabel('MPI Rank', fontweight='bold')
 mpl.xlim([-0.75, 15.5])
 mpl.ylabel('time (sec)', fontweight='bold')
@@ -920,231 +1151,11 @@ mpl.subplots_adjust(top=0.85)
 
 if saveFig:
   fig = mpl.gcf()
-  mpl.savefig('scaling-gant-inplace-disjoint-composite-gpu.png',dpi=200)
-  mpl.savefig('scaling-gant-inplace-disjoint-composite-gpu-sm.png',dpi=80)
+  mpl.savefig('scaling-gant-inplace-disjoint-composite-gpu-mesa.png',dpi=200)
+  mpl.savefig('scaling-gant-inplace-disjoint-composite-gpu-mesa-sm.png',dpi=80)
 else:
   mpl.show()
 
 # gant
-# mesa
-ip_ev=['RenderGeometry','GatherVectors','TransformVectors','Integrate1','ContrastEnhance1','EdgeEnahnce','Integrate2','ContrastEnhance2','ComputeLIC','ColorLIC','ContrastEnhanceC','DepthCopy','RenderInternal','DepthCopy','RenderInternal']
-ip_r0=[9.08836,0.465344,0.068629,6.71203,2.76863,0.110974,3.3967,1.51991,14.6399,0.137254,0.11577,0.0745132,24.6196,0.000128031,0.00031209]
-ip_r1=[4.84808,4.71319,0.062187,6.50192,2.98067,0.117237,3.25431,1.65574,14.6345,0.136736,0.116352,0.0744421,24.6223,0.000128031,0.000306129]
-ip_r2=[4.81037,4.75223,0.072006,6.3854,3.08613,0.110721,3.26322,1.65336,14.6331,0.137899,0.115264,0.0746741,24.6226,0.000123978,0.00030303]
-ip_r3=[9.08205,0.504243,0.062664,6.34711,3.10615,0.111166,3.25559,1.66094,14.6068,0.14214,0.112949,0.0727,24.6197,0.000117064,0.000247955]
-ip_r4=[4.9113,4.64433,0.0695629,4.64194,4.83799,0.112513,2.33586,2.57972,14.6397,0.138181,0.115692,0.073324,24.622,0.000129938,0.000319958]
-ip_r5=[9.10655,0.450602,0.063051,6.45127,3.03136,0.112294,3.26505,1.65072,14.6358,0.144375,0.108968,0.0739222,24.6191,0.000133038,0.000319958]
-ip_r6=[4.93471,4.62362,0.0620642,5.07079,4.41419,0.112172,2.59273,2.32319,14.6371,0.138102,0.11547,0.0737221,24.6221,0.000126839,0.000319958]
-ip_r7=[9.19545,0.357971,0.069155,5.06016,4.42013,0.112051,2.53252,2.38353,14.6397,0.14341,0.110058,0.0737841,24.6191,0.000123978,0.000319958]
-ip_r8=[4.80664,4.77416,0.0665321,6.88151,2.57571,0.110443,3.46481,1.45307,14.614,0.137567,0.115987,0.0748472,24.6231,0.000137091,0.000326872]
-ip_r9=[9.11398,0.461931,0.065474,8.08057,1.37995,0.110346,4.12393,0.794041,14.6165,0.146618,0.107118,0.074604,24.6201,0.000138044,0.000326872]
-ip_r10=[4.8108,4.77449,0.0677981,7.23413,2.21728,0.110342,3.77404,1.14394,14.6095,0.137571,0.116698,0.074048,24.623,0.000132084,0.000325918]
-ip_r11=[9.08462,0.491337,0.0630829,7.89621,1.56674,0.110828,3.94996,0.967544,14.6165,0.148154,0.105314,0.0747819,24.62,0.000134945,0.000326872]
-ip_r12=[4.89312,4.6935,0.0646389,8.75496,0.698964,0.111126,4.5605,0.356732,14.6088,0.148071,0.105657,0.0744421,24.6229,0.000118017,0.000250816]
-ip_r13=[9.10687,0.472364,0.061435,9.43484,0.027096,0.111291,4.91264,0.0044241,14.6137,0.144749,0.108864,0.074645,24.62,0.000136137,0.000298977]
-ip_r14=[4.9234,4.66215,0.0643651,6.15351,3.30186,0.110852,3.15588,1.76162,14.6099,0.137698,0.116167,0.0743721,24.6229,0.000130892,0.000318766]
-ip_r15=[9.12112,0.455557,0.067379,7.64393,1.81441,0.111309,3.81222,1.10483,14.6162,0.138743,0.114941,0.0746129,24.62,0.000130892,0.000317812]
-
-groups=(ip_ev[0:8]+ip_ev[9:12])
-ids=[0,1,2,3,4,5,6,7,9,10,11]
-groupData=[[],[],[],[],[],[],[],[],[],[],[]]
-groupColors=[[],[],[],[],[],[],[],[],[],[],[]]
-i=0
-while i<11:
-  groupData[i]=[ip_r0[ids[i]],
-      ip_r1[ids[i]],
-      ip_r2[ids[i]],
-      ip_r3[ids[i]],
-      ip_r4[ids[i]],
-      ip_r5[ids[i]],
-      ip_r6[ids[i]],
-      ip_r7[ids[i]],
-      ip_r8[ids[i]],
-      ip_r9[ids[i]],
-      ip_r10[ids[i]],
-      ip_r11[ids[i]],
-      ip_r12[ids[i]],
-      ip_r13[ids[i]],
-      ip_r14[ids[i]],
-      ip_r15[ids[i]]]
-  #print groups[i]
-  #print groupData[i]
-  j=i/10.0 #j=1.0-i/10.0
-  groupColors[i]=cm.Paired(j)
-  groupColors[i]=cm.Dark2(j)
-  #groupColors[i]=cm.Set1(j)
-  #groupColors[i]=cm.Set3(j)
-  i+=1
-
-groupDataBot=[[],[],[],[],[],[],[],[],[],[],[],[]]
-groupDataBot[0]=[0]*16
-i=1
-while i<11:
-  tmp0=groupDataBot[i-1]
-  tmp1=groupData[i-1]
-  tmp2=[sum(d) for d in (zip(*[tmp0,tmp1]))]
-  groupDataBot[i]=tmp2
-  #print
-  #print groups[i]
-  #print groupDataBot[i-1]
-  #print '+'
-  #print groupData[i-1]
-  #print '='
-  #print groupDataBot[i]
-  i+=1
-
-groupPlots=[[],[],[],[],[],[],[],[],[],[],[]]
-
-ranks=np.arange(16)-0.5
-
-mpl.figure()
-mpl.subplot(121)
-groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
-i=1
-while i<11:
-  groupPlots[i]=mpl.bar(ranks,groupData[i],bottom=groupDataBot[i],color=groupColors[i],linewidth=0)
-  i+=1
-
-mpl.subplots_adjust(right=1.125,hspace=0.05)
-mpl.title('Mesa3D Gallium llvmpipe\nINPLACE Compositing Activity by Rank\n1024^3 box at 1215x1090 res',fontweight='bold',fontsize='12')
-mpl.xlabel('MPI Rank', fontweight='bold')
-mpl.xlim([-0.75, 15.5])
-#mpl.ylim([0, 140])
-mpl.ylabel('time (sec)', fontweight='bold')
-mpl.grid()
-
-mpl.legend((groupPlots[0],
-  groupPlots[1],
-  groupPlots[2],
-  groupPlots[3],
-  groupPlots[4],
-  groupPlots[5],
-  groupPlots[6],
-  groupPlots[7],
-  groupPlots[8],
-  groupPlots[9],
-  groupPlots[10]),
-  tuple(groups),
-  prop={'size': 9},
-  bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-
-mpl.subplots_adjust(top=0.85)
-
-if saveFig:
-  fig = mpl.gcf()
-  mpl.savefig('scaling-gant-inplace-composite-mesa.png',dpi=200)
-  mpl.savefig('scaling-gant-inplace-composite-mesa-sm.png',dpi=80)
-else:
-  mpl.show()
 
 
-ipd_ev=['RenderGeometry','GatherVectors','TransformVectors','Integrate1','ContrastEnhance1','EdgeEnahnce','Integrate2','ContrastEnhance2','ComputeLIC','ScatterLIC','ColorLIC','ContrastEnhanceC','DepthCopy','RenderInternal','DepthCopy','RenderInternal']
-ipd_r0=[8.91797,0.601769,0.0635419,1.84561,2.53953,0.110742,0.777521,1.45316,6.85199,0.092078,0.14424,0.191144,0.0738831,16.9717,0.000136137,0.000329971]
-ipd_r1=[4.92925,4.59431,0.066004,3.39835,0.982242,0.110909,1.70336,0.527464,6.84999,0.093472,0.14265,0.191585,0.073487,16.9743,0.000138998,0.000329018]
-ipd_r2=[4.9315,4.59479,0.0716331,4.23472,0.137797,0.111129,2.11099,0.119599,6.84736,0.136953,0.144529,0.145461,0.0741901,16.9743,0.000121832,0.000329971]
-ipd_r3=[8.91755,0.599465,0.067857,2.12174,2.26124,0.11107,1.01767,1.213,6.85438,0.107586,0.144537,0.178611,0.0739009,16.9748,0.000138998,0.000329971]
-ipd_r4=[4.96553,4.53991,0.06198,4.23465,0.16693,0.112909,2.19732,0.0314591,6.86791,0.114938,0.141249,0.172966,0.072875,16.9752,0.000133991,0.000330925]
-ipd_r5=[8.9644,0.426501,0.0612562,2.90849,1.60667,0.112794,1.36779,0.860972,6.98006,0.0695629,0.141662,0.217778,0.0732632,16.9724,0.000135899,0.000330925]
-ipd_r6=[4.94552,4.5468,0.0640271,4.38753,0.024996,0.112293,2.22649,0.0028882,6.88087,0.115607,0.140987,0.172364,0.0732541,16.9753,0.000135899,0.000330925]
-ipd_r7=[8.98532,0.445062,0.0597808,3.63182,0.845057,0.112853,1.89043,0.338373,6.94057,0.0918601,0.141561,0.195476,0.0737171,16.9728,0.000134945,0.000330925]
-ipd_r8=[5.02773,4.48758,0.070585,2.93347,1.44953,0.110207,1.45454,0.777182,6.85785,0.109311,0.140168,0.176994,0.0746069,16.9742,0.000135183,0.000324011]
-ipd_r9=[9.11802,0.403861,0.060643,2.44935,1.93393,0.110468,1.16535,1.06586,6.84889,0.117005,0.151465,0.157903,0.074636,16.9712,0.000136852,0.000324011]
-ipd_r10=[4.96328,4.52834,0.063097,3.26931,1.14511,0.110412,1.65134,0.580301,6.88149,0.117031,0.146544,0.163713,0.0738938,16.9743,0.000135183,0.000324011]
-ipd_r11=[9.06269,0.369109,0.058207,2.78207,1.69512,0.110433,1.34769,0.883708,6.93886,0.095118,0.143659,0.188253,0.073993,16.9712,0.00013423,0.000324011]
-ipd_r12=[4.93606,4.55674,0.0215681,0.00266409,4.42866,9.05991e-06,0.00130582,2.36289,6.88088,0.125333,0.190043,0.108656,0.0759511,16.9731,0.000141859,0.000322104]
-ipd_r13=[9.02472,0.478832,0.0211291,0.00258207,4.41611,7.86781e-06,0.00127697,2.36292,6.8677,0.132735,0.18958,0.101828,0.0758371,16.9701,0.000131845,0.000323057]
-ipd_r14=[4.99745,4.46018,0.0628791,2.88413,1.56506,0.10922,1.31797,0.915068,6.91612,0.12137,0.143487,0.163317,0.074518,16.9758,0.000130892,0.000324965]
-ipd_r15=[9.01455,0.411515,0.0599511,2.84884,1.63286,0.108853,1.45859,0.774578,6.94522,0.104593,0.142938,0.179888,0.07476,16.9723,0.000124931,0.000323057]
-
-
-groups=(ipd_ev[0:8]+ipd_ev[9:13])
-ids=[0,1,2,3,4,5,6,7,9,10,11,12]
-groupData=[[],[],[],[],[],[],[],[],[],[],[],[]]
-groupColors=[[],[],[],[],[],[],[],[],[],[],[],[]]
-i=0
-while i<12:
-  groupData[i]=[ipd_r0[ids[i]],
-      ipd_r1[ids[i]],
-      ipd_r2[ids[i]],
-      ipd_r3[ids[i]],
-      ipd_r4[ids[i]],
-      ipd_r5[ids[i]],
-      ipd_r6[ids[i]],
-      ipd_r7[ids[i]],
-      ipd_r8[ids[i]],
-      ipd_r9[ids[i]],
-      ipd_r10[ids[i]],
-      ipd_r11[ids[i]],
-      ipd_r12[ids[i]],
-      ipd_r13[ids[i]],
-      ipd_r14[ids[i]],
-      ipd_r15[ids[i]]]
-  #print groups[i]
-  #print groupData[i]
-  j=i/11.0 #j=1.0-i/10.0
-  groupColors[i]=cm.Paired(j)
-  groupColors[i]=cm.Dark2(j)
-  #groupColors[i]=cm.Set1(j)
-  #groupColors[i]=cm.Set3(j)
-  i+=1
-
-groupDataBot=[[],[],[],[],[],[],[],[],[],[],[],[],[]]
-groupDataBot[0]=[0]*16
-i=1
-while i<12:
-  tmp0=groupDataBot[i-1]
-  tmp1=groupData[i-1]
-  tmp2=[sum(d) for d in (zip(*[tmp0,tmp1]))]
-  groupDataBot[i]=tmp2
-  #print
-  #print groups[i]
-  #print groupDataBot[i-1]
-  #print '+'
-  #print groupData[i-1]
-  #print '='
-  #print groupDataBot[i]
-  i+=1
-
-groupPlots=[[],[],[],[],[],[],[],[],[],[],[],[]]
-
-ranks=np.arange(16)-0.5
-
-mpl.figure()
-mpl.subplot(121)
-groupPlots[0]=mpl.bar(ranks,groupData[0],color=groupColors[0],linewidth=0)
-i=1
-while i<12:
-  groupPlots[i]=mpl.bar(ranks,groupData[i],bottom=groupDataBot[i],color=groupColors[i],linewidth=0)
-  i+=1
-
-mpl.subplots_adjust(right=1.125,hspace=0.05)
-mpl.title('Mesa3D Gallium llvmpipe\nINPLACE_DISJOINT Compositing Activity by Rank\n1024^3 box at 1215x1090 res',fontweight='bold',fontsize='12')
-mpl.xlabel('MPI Rank', fontweight='bold')
-mpl.xlim([-0.75, 15.5])
-mpl.ylabel('time (sec)', fontweight='bold')
-mpl.grid()
-
-mpl.legend((groupPlots[0],
-  groupPlots[1],
-  groupPlots[2],
-  groupPlots[3],
-  groupPlots[4],
-  groupPlots[5],
-  groupPlots[6],
-  groupPlots[7],
-  groupPlots[8],
-  groupPlots[9],
-  groupPlots[10],
-  groupPlots[11]),
-  tuple(groups),
-  prop={'size': 9},
-  bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-
-mpl.subplots_adjust(top=0.85)
-
-if saveFig:
-  fig = mpl.gcf()
-  mpl.savefig('scaling-gant-inplace-disjoint-composite-mesa.png',dpi=200)
-  mpl.savefig('scaling-gant-inplace-disjoint-composite-mesa-sm.png',dpi=80)
-else:
-  mpl.show()

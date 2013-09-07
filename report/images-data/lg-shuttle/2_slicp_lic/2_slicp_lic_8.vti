@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<VTKFile type="ImageData" version="0.1" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+  <ImageData WholeExtent="223 242 150 166 0 0" Origin="0 0 0" Spacing="1 1 1">
+    <Piece Extent="223 242 150 166 0 0">
+      <PointData>
+      </PointData>
+      <CellData>
+        <DataArray type="Float32" Name="tex" NumberOfComponents="4" format="appended" RangeMin="1.0000106475"         RangeMax="1.5823468746"         offset="0"                   />
+      </CellData>
+    </Piece>
+  </ImageData>
+  <AppendedData encoding="base64">
+   _AQAAAACAAAAAEwAAUAQAAA==eJyVl39M1HUYx2mxNsHEITZH7cTAKySlYDAnd9wSFJCjdiBwd06zJGONQaexGTEwd2zKEAmOERm3Wqb2R5h0V0u2+DEOnSMtTXJNxiwUdAUOFFjOrP6o8Xp0n8/gH/ba5/N8P8/z/jyf53nuh4yh1KD///ZaDIYpsN/nS/33/388ev06+HR/v5Jr3MFK+2sjReDPjhwBy/ObPREW1XnNHg94Znpaed6D9vy+5KJuH/Spax8B52RcBct4pX8yvhq3W8mBvvR56SVZxqs7X+ql8++f+4ZeFa4Q6FH/tBNc8PE5cMcBsi5+ydJfqbfuewfrFlrU+gQr9Zfny/vX6VfemW6ZG//Z8Xbo0bKSevaFNYOzHJ1gGb/0V6enzJee7m6zSh+dHj8PDirvR2cv9TqaYIJeMRdywRX58eDJwwXQ58SUCXwjcAyse19SH3nfuvqpq0eS5f6H5KeoX9Q3PrYf8fnWh0Of2LGN4PiZ18ChcewPnTfXgGei68HLvV+Apf+yPsv71dUzqaeuP8n7lHpJ/1zBTfDfMboLvK7jR/ChnS9Ar8ixQvCpXjP4+P0G6vV9Dni48FORjzHK9yPfl65f6Prpg/VOfX7KGy8ivg7XY+CLzq2Ip7qpFWwND8L+SjPr4Uu3nczHpMfBzkMOfO9oZJ2yn8y3X8p8ketS/4fkG+8nd9g817/ME4sRz55frGDHk1cQz6LCzaz//q/Ap9LWwL7qajY4oY/vffRkD+xNE/uU/aTto6c08xjzS773r/1J8+q3BbUl8Mewqcw0ly8uY37Zm9cjPv+uRPDKz13Yn5z7FuMvDsH+Livf782wTeC2wArwtxWcF2eN1cr3LN+rrGdyXTfPVHnehT/lCUvB1vHLyL+YdRbwne2T8NfWuwX2t26Hgi8b12J/SUYZ+ExDEuvj8kywe0EKOM/B83faG5X9WdZvOc/J/JP5Nu5ey/r8/tucJ3w7wEuiTsKf937fjnwsXboE61XFz8B+6sJW6rG/C/sjAvHsB9/9Bd5QnwX74TzWy6qJBeDoTI+yHsr3q5uvA6U78L3JVvp3p9TG+nWsGjx0hf0yetYI+4bklpS53BXBemTt4bxn28D7m3yd9ex++CfgsA9isX8i8RVwkIv6GYbYT3S/L6Re3soxvK+7WQPgxX28ny8feRbnPx9ZwnrjLQevuhQBrju4Ed83/3EW+Rm6eQDn+RvtsC/eEgdOaxzk/Ox4FOvnvPngD7+5h/1NIXnK/JN6bbO72c+ML4P/vFSO+GrtUVhfXXMDHO5Ihn8/1VQyf9reBLec2Q/7fe4G6Hd+oB3n95oMsE9p5PyXFsd5aGDVLXw/5jTrwRN7grCec9iIdamfrX4W+5eNsH54izjPOm2p4NTfjiOe3Yn5WO9fOAo2P7cN/py37AYfGFvN9/Qq+/PEr604Lzu9lr8XwljfyoajwCXT7Ocr7tpg/85e9pN7HZyv/wZBKIN1
+  </AppendedData>
+</VTKFile>

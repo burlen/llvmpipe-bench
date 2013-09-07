@@ -1,42 +1,67 @@
 \relax 
-\@writefile{toc}{\contentsline {section}{\numberline {1}Features for interactive data exploration}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Pipeline}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
+\citation{surfacelic}
+\citation{imagelic}
+\citation{xsede13}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Operations on pixel extents. The results of three common operations on the two extents $A$, and $B$, are shown in green. Left, intersection. Center, union. Right, subtraction.\relax }}{2}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:lic2d-flow}{{1a}{1}}
-\newlabel{sub@fig:lic2d-flow}{{a}{1}}
-\newlabel{fig:lic2d-flow}{{1b}{1}}
-\newlabel{sub@fig:lic2d-flow}{{b}{1}}
-\newlabel{fig:lic2d-outputs}{{\caption@xref {fig:lic2d-outputs}{ on input line 46}}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Line integral 2D stages\relax }}{2}}
-\newlabel{fig:lic2d-outputs}{{\caption@xref {fig:lic2d-outputs}{ on input line 53}}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Surface LIC Painter stages\relax }}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Noise generator}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Scalar color shading}{4}}
-\newlabel{eqn:color-blend}{{1}{4}}
-\newlabel{eqn:color-map}{{2}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Contrast enahancement}{5}}
-\newlabel{fig:gray-ce-curves1}{{3a}{5}}
-\newlabel{sub@fig:gray-ce-curves1}{{a}{5}}
-\newlabel{fig:gray-ce-curves2}{{3b}{5}}
-\newlabel{sub@fig:gray-ce-curves2}{{b}{5}}
-\newlabel{sec:contrast}{{1.4}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces CE Curves\relax }}{6}}
-\newlabel{fig:gray-ce-curves2}{{3}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Integrator Normalization}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Fragment Masking}{7}}
-\newlabel{sec:mask}{{2}{7}}
-\newlabel{eqn:color-blend}{{9}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Optimizations for interactivity}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Parallelization}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Compositing Algotithms}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Compositing algorithms\relax }}{8}}
-\newlabel{fig:compositing}{{4}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Compositor Scaling}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Test of CE scaling on two vector fields\relax }}{9}}
-\newlabel{fig:ce-scaling}{{5}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Compositor scaling on MHD turbulence dataset\relax }}{10}}
-\newlabel{fig:comp-scaling}{{6}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces INPLACE Compositing\relax }}{11}}
-\newlabel{fig:inplace-comp}{{7}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces DISJOINT Compositor\relax }}{12}}
-\newlabel{fig:disj-comp}{{8}{12}}
+\newlabel{fig:pixel-ops}{{1}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Preliminaries}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Operations on pixel extents}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Pipeline}{2}}
+\citation{surfacelic}
+\citation{imagelic}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Logical processing stages\relax }}{3}}
+\newlabel{fig:flow}{{2}{3}}
+\citation{image-lic}
+\citation{surface lic}
+\newlabel{fig:lic2d-outputs}{{\caption@xref {fig:lic2d-outputs}{ on input line 66}}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Line integral 2D stages\relax }}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Features for interactive data exploration}{4}}
+\newlabel{eqn:color-map}{{1}{4}}
+\newlabel{eqn:color-blend}{{2}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Noise generator}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Scalar color shading}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Contrast enahancement}{6}}
+\newlabel{fig:gray-ce-curves1}{{4a}{6}}
+\newlabel{sub@fig:gray-ce-curves1}{{a}{6}}
+\newlabel{fig:gray-ce-curves2}{{4b}{6}}
+\newlabel{sub@fig:gray-ce-curves2}{{b}{6}}
+\newlabel{sec:contrast}{{3.3}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Integrator Normalization}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces CE Curves\relax }}{8}}
+\newlabel{fig:gray-ce-curves2}{{4}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Fragment Masking}{8}}
+\newlabel{sec:mask}{{3.5}{8}}
+\citation{nasa-shuttle}
+\citation{nasa-shuttle}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces vector normal\relax }}{9}}
+\newlabel{fig:vec-norm}{{5}{9}}
+\newlabel{eqn:color-blend}{{9}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Optimizations for interactivity}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Parallelization}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Gaurd pixel generation}{9}}
+\newlabel{eqn:gaurd-norm}{{10}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Left: LIC colored by momentum on a surface extracted from composite dataset simulating a launch vehicle\cite  {nasa-shuttle} with world space axes aligned bounding boxes colored by dataset id. Center: Screen space projection of the composite dataset's axis aligned bounding boxes colored by MPI process id in a 4 way parallel run. For reference composited vector field colored by magnitdue is shown. The comm cost for this decomposition is 1.8. Right: Pixel extents from the in-place disjoint domain decomposition used to compute the LIC colred by MPI process id with the LIC blended for reference. The comm cost for this decomposition is 0.32.\relax }}{10}}
+\newlabel{fig:blocks}{{6}{10}}
+\newlabel{eqn:gaurd}{{11}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Compositing Algotithms}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Compositing algorithms\relax }}{11}}
+\newlabel{fig:compositing}{{7}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Compositor Scaling}{12}}
+\newlabel{fig:ce-scaling}{{8a}{12}}
+\newlabel{sub@fig:ce-scaling}{{a}{12}}
+\newlabel{fig:comp-scaling}{{8b}{12}}
+\newlabel{sub@fig:comp-scaling}{{b}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces INPLACE Compositing\relax }}{13}}
+\newlabel{fig:inplace-comp}{{8}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces DISJOINT Compositor\relax }}{14}}
+\newlabel{fig:disj-comp}{{9}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Apendix A}{14}}
+\newlabel{sec:pslic-outputs}{{5}{14}}
+\newlabel{fig:lic2d-outputs}{{\caption@xref {fig:lic2d-outputs}{ on input line 319}}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Outputs from the logical processing stages of our surface LIC algorithm. See figure 2\hbox {} for the stages.\relax }}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Appendix B}{16}}
+\newlabel{sec:scaling-data}{{6}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Rendering of the 222M triangle slice dataset used for scaling runs.\relax }}{17}}
+\newlabel{fig:scaling-lic}{{11}{17}}

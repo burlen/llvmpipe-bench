@@ -7,7 +7,7 @@
 \usepackage[section]{placeins}
 
 %opening
-\title{Multiblock Data Parallel Surface LIC}
+\title{A Surface LIC algorithm for parallel interactive exploration of large composite datasets}
 \author{Burlen Loring}
 
 \begin{document}
@@ -18,108 +18,108 @@
 
 \end{abstract}
 
-\section{Features for interactive data exploration}
-\subsection{Pipeline}
+\section{Introduction}
+A composite dataset is simply a dataset organized into a tree of chunks of geometry and coresponding scalar, vector, and tensor fields. Because of their I/O scalability and the simplicity and flexibility in terms of load balancing when the number of visualization process differs from the number of processes used to compute a given simulation, composite datasets are employed ubiqutously in high perfromance parallel scientific data visualization. This work presents a surface LIC algorithm specifically tailored for interactive visualization and exploration of large composite datasets. By designing the parallel load balancing and compositing algorithm specifically for composite data gains in efficiency are attained by redcuing interprocess communication and redundant compuation. 
 
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.55\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{./images-data/dia-serial/surfacelic-painter-flow.png}
-		\caption{}
-		\label{fig:lic2d-flow}
-	\end{subfigure}
-% 	\hspace{0.1in}
-	\begin{subfigure}{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{./images-data/dia-serial/lic2d-flow.png}
-			% lic2d-flow.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 610 807
-		\caption{}
-		\label{fig:lic2d-flow}
-	\end{subfigure}
+The effectiveness of surface LIC technique is highly sensative to a number of external parameters such as the choice of surface geometry, the characteristics of the underlying vector field, the user's choie of camera postion, orientation, and other view related paramters, the user's choice of scene lighting, and screen resolution. The effectiveness of the technique is also affected by a number of internal paramters such as the characteristic of the noise used in convolution, and integration parameters such as step size and number of steps taken. By its nature the LIC process inherently reduces dyanmic range of its output. In the limit as the number of convolution steps approaches infinity the LIC output approaches a median(with respect to the input noise) uniform gray scale value. As this limit is approached patterns in the LIC are lost and ability to effecively visualize scalar field by applying color to LIC is diminished. As a user interactively explores a dataset varying any one of these parameters can drasticlly alter the result, thus a great deal of flexibility is needed to provide acceprtable result generally for all values of this paramter space. AUrtomatic and user tunable features that result in excellent results across the paramter space are presented. 
+
+The work presented here has been incorporated into the popular scientific data visualizaiton library VTK. It has also been specifically designed to work with the popular parallel compositing library IceT, so that it may also be used within popular parallel scientific data visualization codes like ParaView and VisIt which both use IceT for image compositing. The work is distributed with ParaView as well.
+\FloatBarrier 
+
+\section{Preliminaries}
+\subsection{Operations on pixel extents}
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=0.9\textwidth]{./images-data/operations.png}
+ % operations.png: 1849x326 pixel, 72dpi, 65.22x11.50 cm, bb=0 0 1849 326
+ \caption{Operations on pixel extents. The results of three common operations on the two extents $A$, and $B$, are shown in green. Left, intersection. Center, union. Right, subtraction.}
+ \label{fig:pixel-ops}
 \end{figure}
 
+When thinking about algorithms designed for rendering parallel composite datasets it's convinient to introduce the concept of a ``pixel extent''. A pixel extent is defined simply as a set of 4 integer values decribing an axis aligned bounding rectangle in screen space. This light weight meta data is useful for describing and manipulating regions ins screenspace. For example we use this abstraction to describe the view and subsets of the view containing valid data for each leaf dataset on each MPI process. Pixel extents are light enough to be quickly communicated to all processes with little overhead making it possible for all processes to know how data is distributed. Additionally, pixel extents are mapped easily to the MPI subarray datatype and thus simplyfy the description of ``zero-copy'' data transfers of non-contiguous regions of memory between processes or locally from one buffer into another. Here the source and destination buffers need not be the same size, or dimensions, but the source and destination extent do. Thus they facilitate transfers of data needed for load balancing and compositing. 
+
+When combined with mathematical operators pixel extents are a powerful abstraction for determining both the cost of and the steps required to composite the vector field. The following set of opertions are useful, sizeof, union($\cup$), intersection($\cap$), shift, merge, and subtract(-). For example in figure \ref{fig:pixel-ops} given two overlaping extents $A$ and $B$, if $A$ and $B$ are on different processes then during compositing the data described by the exent $A \cap B$ must be excahnged between these processes and communication cost of this exchange will be proportional to sizeof$(A \cap B)$.
+
+\subsection{Pipeline}
+\begin{figure}[ht]
+ \centering
+ \includegraphics[width=\textwidth]{./images-data/dia-serial/surfacelic-painter-and-lic2d-flow.png}
+ % surfacelic-painter-and lic2d-flow.png: 4131x2242 pixel, 200dpi, 52.46x28.47 cm, bb=0 0 1487 807
+ \caption{Logical processing stages}
+ \label{fig:flow}
+\end{figure}
+
+Here an overview of the pipeline used to compute 
+
+Conceptually our surface LIC algorithm projects vectors defined on an arbitrary surface onto the surface and then from world space into screen space where an image LIC is computed\cite{surfacelic} \cite{imagelic}. When running in parallel the transition from from world space to screen space necessitates a compositing step that gathers pixels to the process that needs them. Because we are implementing our algorithm inside of a larger eco-system, depending on the load balancing algorithm selected a scatter stage that puts pixels back on their original processes may be needed. This step is primarilly dictated by IceT which determines which pixels are touched by a given process and composites only those pixels. Our algorithm is MPI parallel and through GPGPU programming techniques can be accelerated by GPU's where available and threading where GPU's are not available\cite{xsede13}.
+
+A schematic of the algorithm is presented in figure \ref{fig:flow}.This is shown on the left half of the diagram. In this figure, optional processing stages are shaded gray, we show chached textures as red parallelograms, and green double arrows indicate inter-process communication. The major processing stages of the surface LIC are 1) lighting computations and vector projection, 2) a gaurd pixel generation, load balancing, and compositing stage, 3) a stage computing the LIC in image space, 4) A scatter stage to move the data back to where it was prior to compositing; 5) a shading stage that combines image LIC and results of scalar coloring and lighting computations; 6) a color contrast enhancement stage; 7) a stage performing depth test and copying the final result into the default FBO. See appendix \ref{sec:slic-output} for example of output of each stage.
+
+We have split the algorithm into logical processing stages and show them organized in two groups, the vertex processing group(red) and the fragment processing  group(green). During vertex processing we loop over each process's composite data leafs, rendering each to a single texture using a shader that projects vectors, computes lighting, and applies scalar coloring to lit surface geometry. During this stage depth test is enabled which results in a localy correct vector field in image space. To produce the globally correct vector field a compositing stage is employed. Prior to fragment processing we compute the screen space projection, or pixel extent, of each composite dataset leaf's world space axis aligned bounding box. Each leaf's pixel extent is further tightened using the depth buffer and vector field. We then utilize the collection of tight pixel extents to initiate the fragment processing stages by rendering screen aligned quads over just the fragments described be each pixel extent. Limitting fragment processing to tight pixel extents can significiantly reduce the number of fragments that each stage processes for example see section \ref{sec:compsoiting}.
+
+On the right half of the figure a break-out diagram detailing the processing stages used in our image LIC algorithm are shown. Our image LIC algorithm is implemented in two passes. In the first pass, fragments are masked based on user provided criteria\cite{surfacelic} then a basic LIC is computed\cite{imagelic}. In the second pass, the result of the first pass is run through contrast and edge enhancment stages before being used as ``noise'' texture in the second LIC pass. The second pass substantially improves the visual quality of the streaks.  Finally optoinal anti-aliasing and contrast enharncement stages are applied. 
+
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.75\textwidth]{./images-data/dia-serial/lg-lic2d-200ppi.png}
+	\includegraphics[width=0.9\textwidth]{./images-data/dia-serial/lg-lic2d-200ppi.png}
 	% lic2d-flow.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=0 0 610 807
 	\label{fig:lic2d-outputs}
   \caption{Line integral 2D stages}
 \end{figure}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.75\textwidth]{./images-data/dia-serial/lg-surface-lic-painter-200ppi.png}
-	\label{fig:lic2d-outputs}
-  \caption{Surface LIC Painter stages}
-\end{figure}
-
-% \subsection{vtkSurfaceLICPainter}
-The pipeline employed by the vtkSurfaceLICPainter, including the new contrast enhancement stages, is shown in the following schematic:
-\begin{center}
-\footnotesize\bf
-\begin{verbatim}
-         noise
-           |
-           [ PROJ LIC2D COLOR (CCE) ]
-           |                        |
-        vectors                  surface LIC
-\end{verbatim}%
-\end{center}
-Where, the PROJ stage renders geometry, projecting vectors onto the surface, and the the screen; the LIC2D stage computes the LIC driving the vtkLineIntegralConvolution2D class; the COLOR stage combines LIC with scalar colors shading the surface geometry; and the CCE stage applies the new color contrast enhancement. Optional stages are enclosed in ().
-
-In order to provide better interaction and faster response as parameters are varied during interactive exploration, each stage renders to a frame-buffer which is cached. This enables un-necessary stages to be skipped during interaction. For example, if an integrator parameter is modified then the geometry rendering and projection stage can be skipped. For large data this optimization can result in orders of magnitude speed up during interaction.
-
-% \subsection{vtkLineIntegralConvolution2D}
-The pipeline employed in vtkLineIntegralConvolution2D, including the new contrast enhancement stages, is shown in the following schematic:
-\begin{center}
-\footnotesize\bf
-\begin{verbatim}
-  noise texture
-           |
-           [ LIC ( ( CE ) HPF LIC ) ( AA ) ( CE ) ]
-           |                                      |
-  vector texture                              LIC'd image
-\end{verbatim}%
-\end{center}
-Where LIC is the line integral convolution stage, HPF is a high-pass filter stage, CE is a contrast enhancement stage, and AA is an anti-aliasing stage. The optional stages are enclosed in (). Nested optional stages depend on the execution of their parent stage.
 
 \FloatBarrier
 
-\subsection{Noise generator}
-The streak characteristics and look of the final LIC'ed image vary widely based on the input dataset, resolution of the final image, and choice of surface geometry. One important factor in determining the streaking characteristics and overall look of the final image are the characteristics of the input noise texture. The size of the noise pixels, the size of the noise texture, the contrast and dynamic range of the noise texture, all play a role in the look of the final image. Using the same noise texture produces markedly different results on different datasets and even on the same dataset at different screen resolutions. It's unlikely that a single noise texture will work well in all cases.
 
-In order to provide more control over the streaking characteristics and general look of the final LIC image I have added customizable noise texture generator. The noise texture can be modified based on the following parameters:
 
-\begin{description}
-\item[GenerateNoiseTexture] Select between the default static noise texture or generate a custom noise texture using the following parameters.
-\item[NoiseType] Select between Gaussian, uniformly distributed noise, or Perlin noise.
-\item[NoiseTextureSize] Select the number of pixels in a side of the square noise texture.
-\item[NoiseGrainSize] Select the number of pixels each side of the square noise value spans.
-\item[MinNoiseValue] Set the lowest color in the noise texture, the default, 0, is black.
-\item[MaxNoisevalue] Set the highest color in the noise texture, the default, 1, is white.
-\item[NumberOfNoiseLevels] Set the number of noise colors.
-\item[ImpulseNoiseProbability] Impulse noise noise can be generated with a probability less than 1.
-\item[ImpulseNoiseBackgroundColor] The color to use for un-touched pixels.
-\item[NoiseGeneratorSeed] Modify the seed value of the random number generators.
-\end{description}
+\section{Features for interactive data exploration}
 
-Changing the noise texture gives one greater control over the look of the final image. By default the original static 200x200 noise texture (see VTKData/Data/Data/noise.png) is used.
+What characteristics in the output LIC make for an effective visualization across a wide variety of input data and rendering conditons? Some of the important characteristics in an effective surface LIC visualizaion are
+\begin{enumerate}
+ \item The LIC patterns accurately represent the characteristics of the underlying vector field. If desired the relative strength and features in strongly vearying fields should be maintained.
+ \item When scalar coloring is desired, LIC pattern must not be lost during the application of colors and similarly scalar colors once applied should not be dull or have greatly diminished intensity.
+ \item Over all a high dynamic range in the resulting image is desirable. This make it easy to identify feature in LIC and scalar colors. The lower the dyanmic range the less decernable detail there is in the result.
+ \item Lighting characteristics must be maintained, for example shadows, specular reflections, etc.
+ \item The algorithm should perform well on very large surface geometry
+\end{enumerate}
 
-\subsection{Scalar color shading}
-The current approach for shading the LIC'ed image with scalar colors blends the scalar colors with the LIC according to
-\begin{equation}
-c_{ij} = L_{ij} * I + S_{ij} * (1 - I)
-\label{eqn:color-blend}
-\end{equation}
-where the indices $i,j$ identify a specific fragment, $c$ is final RGB color, $L$ is LIC gray scale value, $S$ is the scalar RGB color, and $I$ is a constant ranging from 0 to 1, with a default of 0.8. Decreasing $I$ to obtain brighter colors diminishes the intensity of the LIC, and vise versa. When colors are bright the LIC is difficult to see. Currently, the best results are obtained by sacrificing on both fronts.
+When thinking about how best to acheive these goals it's important to consider how scalar colored, lit geometry and and image LIC are combined to produce the final result. In our algorithm scalar coloring and lighting caclulations are rendered and stored in a texture. The image LIC is computed using projected vectors and also stored in a texture. There are two common approaches for combining these two textures into the final resut, a multiplciative or mapping approach\cite{image-lic} and an addative or blending approach\cite{surface lic}.
 
-The purpose of the new scalar color shader is to provide both bright and intense scalar colors without diminishing the visibility of the LIC itself. The shader is implemented by the following equation:
+The mapping approach is described by the following equation:
 \begin{equation}
 c_{ij} = ( L_{ij} + f ) * S_{ij}
 \label{eqn:color-map}
 \end{equation}
 where the indices $i,j$ identify a specific fragment, $c$ is final RGB color, $L$ is LIC gray scale intensity, $S$ is the scalar RGB color, and $f$ is a biasing parameter, typically 0, that may be used for fine tuning. When $f=0$, the typical case, colors are transfered directly to the final image where the LIC is 1, and a linearly scaled transfer of scalar colors where LIC gray scale color is less than one down to 0, where the final color is black. The bias parameter $f$ may be set to small positiver or negative values between -1 and 1 to increase or decrease LIC values uniformly resulting in brighter or darker images. When $f\neq0$ final fragment colors, $c$, are clamped such that $0 \leq c \leq 1$.
+
+With the mapping approach the distribution of intensity values in the LIC directly affect the accuracy and intensity with which scalar colors and lighting effects are transfered to the final result and the average brightness and contrast of the result. Note in the final result that individual RGB channel values will be less then or equal to the maximum grayscale value in the image LIC. Also, the greater the number of pixels close to 1 in the image LIC, the more acurately and intensly scalar coloring and lighting are transfered into the final image. However, this must be balanced with a sufficient number of highly contrasting pixels where the value is closer to 0 in order to accurately represent the LIC pattern. Put sucintly it's critical that the image LIC has high contrast and dynamic range with a good mix of light and dark values if it is to be effectively mapped onto scalar colors. However, the convolution process inheriently reduces both contrast and dynamic range in the image LIC. To correct this we've introduced contrast enhancment stages in three places in the pipeline.
+
+The blending approach for combining scalar colors, lighting effects, and the image LIC is described by the following equation:
+\begin{equation}
+c_{ij} = L_{ij} * I + S_{ij} * (1 - I)
+\label{eqn:color-blend}
+\end{equation}
+where the indices $i,j$ identify a specific fragment, $c$ is final RGB color, $L$ is LIC gray scale value, $S$ is the scalar RGB color, and $I$ is a constant ranging from 0 to 1, with a default of 0.8. Decreasing $I$ to obtain brighter colors diminishes the intensity of the LIC, and vise versa. When colors are bright the LIC is difficult to see. Currently, the best results are obtained by sacrificing slightly on both fronts. The blending approach is especially useful with curved surfaces and pronounced lighting effects. Like the mapping approach it bennefits from an image LIC with high contrast and dyanmic range.
+
+\subsection{Noise generator}
+Important factors in determining the characteristcs of streaking patterns in the LIC and in overall contrast and dynamic range of the final image are the characteristics of the noise to be convolved with the vector field. By varying the properties of the input noise such as distribution, or noise type, minimum, maximum values, number of realizable values, size of each elemental noise value.  spacing between noise values and background color of , the size of the noise texture, the contrast and dynamic range of the noise texture, all play a role in the look of the final image. Using the same noise texture produces markedly different results on different datasets and even on the same dataset at different screen resolutions. It's unlikely that a single noise texture will work well in all cases. Thus a noise generator is a key component in the algorithm for interactive data exploration. 
+
+Our noise texture generator defines the following 9 run time modifiable degrees of freedom.
+\begin{description}
+\item[Noise type] This parameter controls the underlying statistical distribution of values in the generated noise texture, or type of noise generated. The user may choose from Gaussian noise, uniformly distributed noise, or Perlin noise. By default Gaussian noise is used.
+\item[Texture size] This paramter controls the size of the square noise texture in each direction. Support for non-power of 2 textures is assumed. However in the case of Perlin noise the texture size is adjusted to the nearest power of 2.
+\item[Grain size] Select the number of pixels  in each direction that each generated noise element fills in the resulting texture. For Perlin noise this sets the size of the largest scale, and must be a power of 2.
+\item[Min value] This parameter sets the lowest gray scale value realizable in the generated noise texture. This paramter can range between 0 and 1 and the default value is 0.
+\item[Max value] This parameter sets the highest gray scale value realizable in the generated noise texture. This paramter can range between 0 and 1 and the default value is 0.8.
+\item[Number of levels] Set the number of realizable gray scale values. This parameter can range from 2 to 1024 and the default value is 1024.
+\item[Impulse probability] This parameter controls how likely a given element is to be assigned a value. When set to 1 all elements are filled. When set to some number lower than one a fraction of the texture's elements are filled with generated noise. Elements that are not filled take on a background color value. The default impulse probablity is 1.
+\item[Background color] The gary scale value to use for un-touched pixels when the impulse probability paramter is set less than 1. The default background value is 0.
+\item[RNG seed] Modify the seed value of the random number generators.
+\end{description}
+Changing the noise texture gives one greater control over the look of the final image. TODO insert image.
+
+\subsection{Scalar color shading}
+
 
 \subsection{Contrast enahancement}
 
@@ -186,13 +186,73 @@ where, $L$ are fragment lightness values and $F_m$ and $F_M$ are the adjustment 
 
 
 \subsection{Integrator Normalization}
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=\textwidth]{./images-data/vector-norm/vec-norm.png}
+ % vec-norm.png: 2100x1028 pixel, 72dpi, 74.07x36.26 cm, bb=0 0 2100 1028
+ \caption{vector normal}
+ \label{fig:vec-norm}
+\end{figure}
+
+
+Normalizing vectors during integration is a technique often used to simplify the LIC'ing algorithm and its use. During integration vector field values are normalized with the result that the convolution occurs over the same integrated arclength for all pixels in the result. This gives the result a smooth and uniform look independent of the input vector field. This also makes it possible to provide reasonable default values for step size and number of steps to the integrator independent of the input vector field. The resulting visualization acurately shows the true tangent field however variations in the relative strength of the vector field is lost and can alter the relationships of flow features making weak features prominent and strong features less so.
+
+When normalized(the default) the input vector field is normalized during integration, and each integration occurs over the same arc-length. When not set each integration occurs over an arc length proportional to the field magnitude as is customary in traditional numerical methods. See, "Imaging Vector Fields Using Line Integral Convolution" for an example where normalization is used. See, "Image Space Based Visualization of Unsteady Flow on Surfaces" for an example of where no normalization is used. Both approaches are valid and useful, the new feature allows for the selection of one or the other.
+
+In the context of developing a general puprose tool for interactive data exploration it's important to provide both options and let the user select the option that best fits her needs. For example figure \ref{fig:vec-norm} shows the result of the algorithm applied to a simulation of magnetic reconnection in a hot plasma with and without integrator normalization. In this case normalization can give a false sense of the importance of a number of flow features.
+
+\subsection{Fragment Masking}
+\label{sec:mask}
+Currently the criteria for masking fragments is that all vector components must be identically zero. This doesn't work for many numerical simulations where stagnant flow is not identically zero due to numerical rounding. For example, stagnate flow might be where $|V|<1e^{-6}$. Also, the lack of control over the color characteristics of the masked fragments result in masked fragments looking drastically different than the LIC'ed fragments. This is illustrated in figure \ref{fig:motivation}.d where all fragments on the outer walls have been masked , the masked fragments are much brighter than the the LIC'ed fragments.
+
+New fragment masking implementation makes use of a user specified threshold value below which fragments are masked. The masking test may be applied either to the original vectors or the surface projected vectors. By applying the test to the original vectors the masked fragments will match scalar colors when coloring by $|V|$. 
+
+Fragments where $|V|<t$ are masked. The fragment masking implementation provides control over the intensity and color of the masked fragments via the following equation:
+\begin{equation}
+c_{ij} = M * I + S_{ij} * ( 1 - I )
+\label{eqn:color-blend}
+\end{equation}
+where the indices $i,j$ identify a specific fragment, $c$ is final RGB color, $M$ is the RGB mask color, $S$ is the scalar RGB color, and $I$ is the mask color intensity. This allows one control over the masking process so that masked fragments may be: highlighted (by setting a unique mask color and mask intensity > 0), made invisible with and without passing the un-convolved noise texture (by setting mask intensity 0), or made to show the scalar color at a similar level of intensity as the LIC (mask intensity > 0).
+
 
 \subsection{Optimizations for interactivity}
 
 \section{Parallelization}
+\begin{figure}[ht]
+ \centering
+ \includegraphics[width=\textwidth]{./images-data/dia-serial/shuttle-surf-par-lg-p-d-space-lic.png}
+ % shuttle-surf-par-lg-p-d-space.png: 1702x514 pixel, 72dpi, 60.04x18.13 cm, bb=0 0 1702 514
+ \caption{Left: LIC colored by momentum on a surface extracted from composite dataset simulating a launch vehicle\cite{nasa-shuttle} with world space axes aligned bounding boxes colored by dataset id. Center: Screen space projection of the composite dataset's axis aligned bounding boxes colored by MPI process id in a 4 way parallel run. For reference composited vector field colored by magnitdue is shown. The comm cost for this decomposition is 1.8. Right: Pixel extents from the in-place disjoint domain decomposition used to compute the LIC colred by MPI process id with the LIC blended for reference. The comm cost for this decomposition is 0.32.}
+ \label{fig:blocks}
+\end{figure}
+
+
+
+
+\subsection{Gaurd pixel generation}
+To ensure correct parallel results prior to compositing guard pixel halos are added to compute pixel extents. The number of gaurd pixels required is determinied by the longest arc length of the integration on each pixel extent. When integrator noramlization is used the same across all pixel extents and is given by:
+\begin{equation}
+g = \max( n_s \delta n_p \alpha,  2)
+\label{eqn:gaurd-norm}
+\end{equation}
+where, $g$ is the number of gaurd pixels required, $n_s$ is the number of steps to integrate, $\delta$ is the step size, $n_p$ is the number of image LIC passes (either 1 or 2), and $\alpha$ is an addative factor that compensates for beleding at the view edges where it's impossible to compute all $n_s$ steps because guard pixel data is unavailable. At least $2$ guard pixels are employed because linear texture fetches use a texels 4 nearest neighbors.
+
+Note that in \ref{eqn:guard-norm} because vector field is normalized $n_s \delta$ is the arc length of the integration. Without integrator normalization the contribution of the vector field magnitude to the integrated arc length must be accounted for. An upper bound on field strength is required. One complication is that for a given pixel extent the maximum value on that extent may change as a result of compositing the data from the overlaping extents from other processes. This is solved for each extent by finding the maximum on itself and all overlapping extents. Note, that although we don't have the vector field defined on the set of comute extents, it is this set of extents that must be used. This is handled by searching for the maximum value inside the interesction of each overlaping rendering and compute extent.
+\begin{equation}
+g_i = \max(n_s \delta n_p \alpha \max(\mathbf{V} \cap V_i), 2)
+\label{eqn:gaurd}
+\end{equation}
+where $V$ is a set, with members consisting of vector field data defined on each extent of the LIC computational domain, and $V_i$ is the extent to compute the number of gaurd pixels for.
+
+
+
 \subsection{Compositing Algotithms}
 
-\begin{figure}[h]
+
+
+
+
+\begin{figure}[ht]
  \centering
  \includegraphics[width=0.9\textwidth]{./images-data/compositing-200ppi.png}
  % compositing-200ppi.png: 4269x6208 pixel, 200dpi, 54.22x78.84 cm, bb=0 0 1537 2235
@@ -212,41 +272,67 @@ Over the past few days I've been analyzing the new parallel surface lic algorith
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=0.8\textwidth]{./scaling-ce-slice-gpu.png}
+\begin{subfigure}{0.45\textwidth}
+ \includegraphics[width=1.0\textwidth]{./scaling-ce-slice-gpu.png}
  % scaling-ce-slice-gpu.png: 1600x1200 pixel, 200dpi, 20.32x15.24 cm, bb=0 0 576 432
  \caption{Test of CE scaling on two vector fields}
  \label{fig:ce-scaling}
-\end{figure}
-This figure shows scaling from 16 to 512 ranks on a massive 16384x8192 VPIC dataset.  The figure shows runs on two vector fields using the settings for a high quality image with and without the new contrast enhancement feature. The figure shows that although the new CE feature makes use of MPI\_Allreduce this does not negatively impact scaling. The differences in performance are attributable to the difference in number of integration steps. Typically I've found that to get the look I want I end up using more integration steps when CE is enabled. A sample image from this run is here: http://www.hpcvis.com/vis/vtk-surface-lic-parallelization/kh-new-jaguar-lic-b-woce.png
-
-
-\begin{figure}[h]
+\end{subfigure}
+\hspace{0.1in}
+\begin{subfigure}{0.45\textwidth}
  \centering
- \includegraphics[width=0.8\textwidth]{./scaling-composite-cube-gpu.png}
+ \includegraphics[width=1.0\textwidth]{./scaling-composite-cube-gpu.png}
  % scaling-composite-cube-gpu.png: 1600x1200 pixel, 200dpi, 20.32x15.24 cm, bb=0 0 576 432
  \caption{Compositor scaling on MHD turbulence dataset}
  \label{fig:comp-scaling}
+\end{subfigure}
 \end{figure}
-This figure show scaling from 16 to 512 ranks on a large $1204^3$ MHD turbulence dataset and a comparison of two of the compositing algorithms. The INPLACE option is what you and I had initially discussed on Skype, while the INPLACE\_DISJOINT option ensures that each fragment is computed only once by uniquely assigning ownership of regions of the screen to ranks while leaving the data in-place ie. a rank doesn't take ownership of a fragments it doesn't have data for. For the INPLACE\_DISJOINT approach the compositing communication cost is the same or in some cases less than the INPLACE approach although it's split into two phases(gather and scatter). The figure shows that the INPLACE\_DISJOINT method offers a nice increase in performance. The speed up is larger in the smaller runs because in those runs the screen regions by rank are larger, and this presents a greater opportunity to reduce the number of fragments processed per rank. The following teo plots show this better. The image produced by these runs is here: http://www.hpcvis.com/vis/vtk-surface-lic-parallelization/pr1-lic.png
+
+Figure \ref{ce-scaling} shows scaling from 16 to 512 ranks on a massive 16384x8192 VPIC dataset.  The figure shows runs on two vector fields using the settings for a high quality image with and without the new contrast enhancement feature. The figure shows that although the new CE feature makes use of MPI\_Allreduce this does not negatively impact scaling. The differences in performance are attributable to the difference in number of integration steps. Typically I've found that to get the look I want I end up using more integration steps when CE is enabled. A sample image from this run is here: http://www.hpcvis.com/vis/vtk-surface-lic-parallelization/kh-new-jaguar-lic-b-woce.png
+
+Figure \ref{comp-scaling} show scaling from 16 to 512 ranks on a large $1204^3$ MHD turbulence dataset and a comparison of two of the compositing algorithms. The INPLACE option is what you and I had initially discussed on Skype, while the INPLACE\_DISJOINT option ensures that each fragment is computed only once by uniquely assigning ownership of regions of the screen to ranks while leaving the data in-place ie. a rank doesn't take ownership of a fragments it doesn't have data for. For the INPLACE\_DISJOINT approach the compositing communication cost is the same or in some cases less than the INPLACE approach although it's split into two phases(gather and scatter). The figure shows that the INPLACE\_DISJOINT method offers a nice increase in performance. The speed up is larger in the smaller runs because in those runs the screen regions by rank are larger, and this presents a greater opportunity to reduce the number of fragments processed per rank. The following teo plots show this better. The image produced by these runs is here: http://www.hpcvis.com/vis/vtk-surface-lic-parallelization/pr1-lic.png
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1.1\textwidth]{./scaling-gant-inplace-composite-gpu-mesa.png}
+ \includegraphics[width=1.0\textwidth]{./scaling-gant-inplace-composite-gpu-mesa.png}
  % scaling-gant-inplace-composite-gpu-mesa.png: 2046x1095 pixel, 200dpi, 25.98x13.91 cm, bb=0 0 737 394
  \caption{INPLACE Compositing}
  \label{fig:inplace-comp}
 \end{figure}
 
-
 These two figures are Gant plots of each rank's activity during the 2 node 16 rank compositing INPLACE and INPLACE\_DISJOINT scaling runs. We're looking at the 2-node case because it shows the greatest speed up for the INPLACE\_DISJOINT compositor and it will be easier to see the performance differences between the two. For both runs most of the time is spent in RenderGeometry (vector projection and light vertex shaders) and Integrate1/Integrate2 phases. CE phases tend to look long because of the MPI\_Allreduce ranks get synchronized by the slowest rank so most of the time spent there is waiting. The RenderGeometry and GatherVectors(compositing and guard pixel exchange) times are nearly identical for both compositors. This means that speed up attained by the INPLACE\_DISJOINT compositor is a result of reduced integration time while computing the LIC. With INPLACE\_DISJOINT approach each rank has fewer fragments to process and there's a greater opportunity to cull empty fragments as the screen space regions are decomposed. These plots also show that the overhead of decomposing(makiing the screenspace disjoint amongst ranks) is small enough to be negligible and that although the INPLACE\_DISJOINT moves less data around during compositing and guard pixel exchange it doesn't contribute a lot to the speed of the approach.
 
 \begin{figure}[h]
  \centering
- \includegraphics[width=1.1\textwidth]{./scaling-gant-inplace-disjoint-composite-gpu-mesa.png}
+ \includegraphics[width=1.0\textwidth]{./scaling-gant-inplace-disjoint-composite-gpu-mesa.png}
  % scaling-gant-inplace-disjoint-composite-gpu-mesa.png: 2128x1096 pixel, 200dpi, 27.03x13.92 cm, bb=0 0 766 395
  \caption{DISJOINT Compositor}
  \label{fig:disj-comp}
 \end{figure}
+\FloatBarrier
+
+\section{Apendix A}
+\label{sec:pslic-outputs}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{./images-data/dia-serial/lg-surface-lic-painter-200ppi.png}
+	\label{fig:lic2d-outputs}
+  \caption{Outputs from the logical processing stages of our surface LIC algorithm. See figure \ref{fig:flow} for the stages.}
+\end{figure}
+\FloatBarrier
+
+\section{Appendix B}
+\label{sec:scaling-data}
+\begin{figure}[ht]
+ \centering
+ \includegraphics[width=\textheight,angle=90]{./images-data/dia-serial/lic-b-427-hr.png}
+ % lic-b-427-hr.png: 5000x1848 pixel, 72dpi, 176.37x65.19 cm, bb=0 0 4999 1848
+ \caption{Rendering of the 222M triangle slice dataset used for scaling runs.}
+ \label{fig:scaling-lic}
+\end{figure}
+
+% shuttle launch vehicle dataset
+% P.G. Buning, I.T. Chiu, F.W. Martin, Jr., R.L. Meakin, S. Obayashi, Y.M. Rizk, J.L. Steger, and M. Yarrow, "Flowfield Simulation of the Space Shuttle Vehicle in Ascent," Fourth International Conference on Supercomputing, Vol II, Supercomputer Applications, Kartashev & Kartashev, eds., 1989, pp. 20-28.
 
 
 

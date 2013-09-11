@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.4.18)  6 SEP 2013 16:53
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.4.18)  10 SEP 2013 17:34
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -312,7 +312,13 @@ Package: placeins 2005/04/18  v 2.2
 LaTeX Warning: Label `fig:gray-ce-curves2' multiply defined.
 
 
-LaTeX Warning: Label `eqn:color-blend' multiply defined.
+LaTeX Warning: Label `sub@fig:gray-ce-curves2' multiply defined.
+
+
+LaTeX Warning: Label `fig:comp-scaling' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:comp-scaling' multiply defined.
 
 
 LaTeX Warning: Label `fig:lic2d-outputs' multiply defined.
@@ -320,18 +326,18 @@ LaTeX Warning: Label `fig:lic2d-outputs' multiply defined.
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
  (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count94
@@ -390,19 +396,19 @@ driver: pdftex
 (1in=72.27pt, 1cm=28.45pt)
 -----------------------
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 15.
+(Font)              <12> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 15.
+(Font)              <8> on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 15.
+(Font)              <6> on input line 34.
 <./images-data/operations.png, id=1, 1855.93375pt x 327.2225pt>
 File: ./images-data/operations.png Graphic file (type png)
 
 <use ./images-data/operations.png>
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 35.
+(Font)              <7> on input line 54.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 35.
+(Font)              <5> on input line 54.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -417,28 +423,28 @@ le (type png)
 
 <use ./images-data/dia-serial/surfacelic-painter-and-lic2d-flow.png>
 
-LaTeX Warning: Citation `surfacelic' on page 2 undefined on input line 54.
+LaTeX Warning: Citation `surfacelic' on page 2 undefined on input line 73.
 
 
-LaTeX Warning: Citation `imagelic' on page 2 undefined on input line 54.
+LaTeX Warning: Citation `imagelic' on page 2 undefined on input line 73.
 
 
-LaTeX Warning: Citation `xsede13' on page 2 undefined on input line 54.
+LaTeX Warning: Citation `xsede13' on page 2 undefined on input line 73.
 
 
-LaTeX Warning: Reference `sec:slic-output' on page 2 undefined on input line 56
+LaTeX Warning: Reference `sec:slic-output' on page 2 undefined on input line 75
 .
 
 [2 <./images-data/operations.png>]
 
-LaTeX Warning: Reference `sec:compsoiting' on page 3 undefined on input line 58
+LaTeX Warning: Reference `sec:compsoiting' on page 3 undefined on input line 77
 .
 
 
-LaTeX Warning: Citation `surfacelic' on page 3 undefined on input line 60.
+LaTeX Warning: Citation `surfacelic' on page 3 undefined on input line 79.
 
 
-LaTeX Warning: Citation `imagelic' on page 3 undefined on input line 60.
+LaTeX Warning: Citation `imagelic' on page 3 undefined on input line 79.
 
 
 <./images-data/dia-serial/lg-lic2d-200ppi.png, id=20, 1314.95265pt x 725.5908pt
@@ -446,93 +452,108 @@ LaTeX Warning: Citation `imagelic' on page 3 undefined on input line 60.
 File: ./images-data/dia-serial/lg-lic2d-200ppi.png Graphic file (type png)
  <use ./images-data/dia-serial/lg-lic2d-200ppi.png> [3 <./images-data/dia-seria
 l/surfacelic-painter-and-lic2d-flow.png>]
+<./images-data/dia-serial/color-ce-curves-khB-both-h.png, id=25, 2519.4125pt x 
+1530.71875pt>
+File: ./images-data/dia-serial/color-ce-curves-khB-both-h.png Graphic file (typ
+e png)
+ <use ./images-data/dia-serial/color-ce-curves-khB-both-h.png>
 
-LaTeX Warning: Citation `image-lic' on page 4 undefined on input line 86.
+LaTeX Warning: Citation `image-lic' on page 4 undefined on input line 109.
 
 
-LaTeX Warning: Citation `surface lic' on page 4 undefined on input line 86.
+LaTeX Warning: Citation `surface lic' on page 4 undefined on input line 109.
 
-[4 <./images-data/dia-serial/lg-lic2d-200ppi.png (PNG copy)>] [5]
-<./images-data/dia-serial/gray-ce1-curves.png, id=32, 428.92245pt x 389.5353pt>
+[4 <./images-data/dia-serial/lg-lic2d-200ppi.png (PNG copy)>] [5 <./images-data
+/dia-serial/color-ce-curves-khB-both-h.png>]
+<./images-data/dia-serial/gray-ce1-curves.png, id=34, 428.92245pt x 389.5353pt>
 File: ./images-data/dia-serial/gray-ce1-curves.png Graphic file (type png)
 <use ./images-data/dia-serial/gray-ce1-curves.png>
-<./images-data/dia-serial/gray-ce2-curves.png, id=33, 428.92245pt x 389.5353pt>
+<./images-data/dia-serial/gray-ce2-curves.png, id=35, 428.92245pt x 389.5353pt>
 File: ./images-data/dia-serial/gray-ce2-curves.png Graphic file (type png)
 <use ./images-data/dia-serial/gray-ce2-curves.png>
-
-LaTeX Warning: Reference `fig:motivation' on page 6 undefined on input line 144
-.
-
-[6 <./images-data/dia-serial/gray-ce1-curves.png> <./images-data/dia-serial/gra
-y-ce2-curves.png>]
-<./images-data/dia-serial/color-ce-curves.png, id=40, 428.92245pt x 389.5353pt>
+<./images-data/dia-serial/color-ce-curves.png, id=36, 428.92245pt x 389.5353pt>
 File: ./images-data/dia-serial/color-ce-curves.png Graphic file (type png)
 <use ./images-data/dia-serial/color-ce-curves.png>
-<./images-data/vector-norm/vec-norm.png, id=41, 2107.875pt x 1031.855pt>
-File: ./images-data/vector-norm/vec-norm.png Graphic file (type png)
 
-<use ./images-data/vector-norm/vec-norm.png>
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7]
-
-LaTeX Warning: Reference `fig:motivation' on page 8 undefined on input line 206
+LaTeX Warning: Reference `fig:motivation' on page 6 undefined on input line 156
 .
 
-[8 <./images-data/dia-serial/color-ce-curves.png>]
-<./images-data/dia-serial/shuttle-surf-par-lg-p-d-space-lic.png, id=52, 3416.76
+[6] [7 <./images-data/dia-serial/gray-ce1-curves.png> <./images-data/dia-serial
+/gray-ce2-curves.png> <./images-data/dia-serial/color-ce-curves.png>]
+<./images-data/dia-serial/ensight-blow-multiblock-frame.png, id=49, 1419.3025pt
+ x 1078.0275pt>
+File: ./images-data/dia-serial/ensight-blow-multiblock-frame.png Graphic file (
+type png)
+
+<use ./images-data/dia-serial/ensight-blow-multiblock-frame.png> [8 <./images-d
+ata/dia-serial/ensight-blow-multiblock-frame.png>]
+<./images-data/vector-norm/vec-norm.png, id=54, 4215.75pt x 2071.74pt>
+File: ./images-data/vector-norm/vec-norm.png Graphic file (type png)
+
+<use ./images-data/vector-norm/vec-norm.png> [9]
+<./images-data/dia-serial/shuttle-surf-par-lg-p-d-space-lic.png, id=58, 3416.76
 5pt x 1031.855pt>
 File: ./images-data/dia-serial/shuttle-surf-par-lg-p-d-space-lic.png Graphic fi
 le (type png)
 
 <use ./images-data/dia-serial/shuttle-surf-par-lg-p-d-space-lic.png>
 
-LaTeX Warning: Citation `nasa-shuttle' on page 9 undefined on input line 225.
+LaTeX Warning: Citation `nasa-shuttle' on page 10 undefined on input line 256.
 
 
-LaTeX Warning: Citation `nasa-shuttle' on page 9 undefined on input line 225.
+LaTeX Warning: Citation `nasa-shuttle' on page 10 undefined on input line 256.
 
+[10 <./images-data/vector-norm/vec-norm.png> <./images-data/dia-serial/shuttle-
+surf-par-lg-p-d-space-lic.png>]
 
-LaTeX Warning: Reference `eqn:guard-norm' on page 9 undefined on input line 240
-.
+LaTeX Warning: Reference `eqn:guard-norm' on page 11 undefined on input line 27
+3.
 
-[9 <./images-data/vector-norm/vec-norm.png>]
-<./images-data/compositing-200ppi.png, id=57, 1542.60315pt x 2243.2608pt>
-File: ./images-data/compositing-200ppi.png Graphic file (type png)
+[11]
+<./images-data/compositing-2-200ppi.png, id=67, 1542.60315pt x 1727.253pt>
+File: ./images-data/compositing-2-200ppi.png Graphic file (type png)
 
-<use ./images-data/compositing-200ppi.png>
+<use ./images-data/compositing-2-200ppi.png> [12] [13 <./images-data/compositin
+g-2-200ppi.png (PNG copy)>]
+<./images-data/dia-serial/lic-b-427-hr.png, id=78, 5018.75pt x 1854.93pt>
+File: ./images-data/dia-serial/lic-b-427-hr.png Graphic file (type png)
 
-LaTeX Warning: Float too large for page by 23.28809pt on input line 261.
+<use ./images-data/dia-serial/lic-b-427-hr.png>
+<./images-data/dia-serial/pr1-lic.png, id=79, 2439.1125pt x 2188.175pt>
+File: ./images-data/dia-serial/pr1-lic.png Graphic file (type png)
 
-[10 <./images-data/dia-serial/shuttle-surf-par-lg-p-d-space-lic.png>] [11 <./im
-ages-data/compositing-200ppi.png (PNG copy)>]
-<./scaling-ce-slice-gpu.png, id=65, 499.3857pt x 395.67825pt>
+<use ./images-data/dia-serial/pr1-lic.png>
+
+LaTeX Warning: Citation `pslic' on page 14 undefined on input line 331.
+
+[14] [15 <./images-data/dia-serial/lic-b-427-hr.png (PNG copy)> <./images-data/
+dia-serial/pr1-lic.png (PNG copy)>]
+
+LaTeX Warning: Citation `xsede13' on page 16 undefined on input line 334.
+
+<./scaling-ce-slice-gpu.png, id=86, 499.3857pt x 395.67825pt>
 File: ./scaling-ce-slice-gpu.png Graphic file (type png)
 
 <use ./scaling-ce-slice-gpu.png>
-<./scaling-composite-cube-gpu.png, id=66, 497.9403pt x 391.34206pt>
+<./scaling-composite-cube-gpu.png, id=87, 497.9403pt x 391.34206pt>
 File: ./scaling-composite-cube-gpu.png Graphic file (type png)
 
 <use ./scaling-composite-cube-gpu.png>
 
-LaTeX Warning: Reference `ce-scaling' on page 12 undefined on input line 291.
+LaTeX Warning: Reference `ce-scaling' on page 16 undefined on input line 354.
 
 
-LaTeX Warning: Reference `comp-scaling' on page 12 undefined on input line 293.
+LaTeX Warning: Reference `comp-scaling' on page 16 undefined on input line 356.
 
 
-
-<./scaling-gant-inplace-composite-gpu-mesa.png, id=67, 675.7245pt x 409.0482pt>
+[16 <./scaling-ce-slice-gpu.png> <./scaling-composite-cube-gpu.png>]
+<./scaling-gant-inplace-composite-gpu-mesa.png, id=93, 675.7245pt x 409.0482pt>
 File: ./scaling-gant-inplace-composite-gpu-mesa.png Graphic file (type png)
 <use ./scaling-gant-inplace-composite-gpu-mesa.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[12
-
- <./scaling-ce-slice-gpu.png> <./scaling-composite-cube-gpu.png>]
-<./scaling-gant-inplace-disjoint-composite-gpu-mesa.png, id=73, 675.36314pt x 4
+<./scaling-gant-inplace-disjoint-composite-gpu-mesa.png, id=94, 675.36314pt x 4
 09.0482pt>
 File: ./scaling-gant-inplace-disjoint-composite-gpu-mesa.png Graphic file (type
  png)
@@ -540,28 +561,48 @@ File: ./scaling-gant-inplace-disjoint-composite-gpu-mesa.png Graphic file (type
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13 <./scaling-gant-inplace-composite-gpu-mesa.png>]
-<./images-data/dia-serial/lg-surface-lic-painter-200ppi.png, id=79, 1286.76735p
+[17 <./scaling-gant-inplace-composite-gpu-mesa.png>]
+<./images-data/dia-serial/lg-surface-lic-painter-200ppi.png, id=99, 1286.76735p
 t x 2425.01985pt>
 File: ./images-data/dia-serial/lg-surface-lic-painter-200ppi.png Graphic file (
 type png)
 
 <use ./images-data/dia-serial/lg-surface-lic-painter-200ppi.png>
 
-LaTeX Warning: Float too large for page by 82.69183pt on input line 321.
+LaTeX Warning: Float too large for page by 82.69183pt on input line 391.
 
-[14 <./scaling-gant-inplace-disjoint-composite-gpu-mesa.png>] [15 <./images-dat
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[18 <./scaling-gant-inplace-disjoint-composite-gpu-mesa.png>] [19 <./images-dat
 a/dia-serial/lg-surface-lic-painter-200ppi.png (PNG copy)>]
-<./images-data/dia-serial/lic-b-427-hr.png, id=87, 5018.75pt x 1854.93pt>
-File: ./images-data/dia-serial/lic-b-427-hr.png Graphic file (type png)
+<./images-data/dia-serial/kh-b-norm-vs-no-norm.png, id=108, 4392.41pt x 1662.21
+pt>
+File: ./images-data/dia-serial/kh-b-norm-vs-no-norm.png Graphic file (type png)
 
-<use ./images-data/dia-serial/lic-b-427-hr.png>
+ <use ./images-data/dia-serial/kh-b-norm-vs-no-norm.png>
+<./images-data/dia-serial/kh-ui-with-varying-noise.png, id=109, 4426.5375pt x 1
+676.2625pt>
+File: ./images-data/dia-serial/kh-ui-with-varying-noise.png Graphic file (type 
+png)
+ <use ./images-data/dia-serial/kh-ui-with-varying-noise.png>
+<./images-data/dia-serial/various-noise-shader.png, id=110, 1234.6125pt x 1233.
+60875pt>
+File: ./images-data/dia-serial/various-noise-shader.png Graphic file (type png)
 
-LaTeX Warning: Float too large for page by 22.0pt on input line 332.
+ <use ./images-data/dia-serial/various-noise-shader.png> [20
 
-[16
+ <./images-data/dia-serial/kh-b-norm-vs-no-norm.png> <./images-data/dia-serial/
+kh-ui-with-varying-noise.png>]
+<./images-data/dia-serial/ex-blow-balanced-screen-exts-guard-pixels-ddepth-all.
+png, id=116, 890.32625pt x 523.9575pt>
+File: ./images-data/dia-serial/ex-blow-balanced-screen-exts-guard-pixels-ddepth
+-all.png Graphic file (type png)
 
-] [17 <./images-data/dia-serial/lic-b-427-hr.png (PNG copy)>] (./report.aux)
+<use ./images-data/dia-serial/ex-blow-balanced-screen-exts-guard-pixels-ddepth-
+all.png> [21 <./images-data/dia-serial/various-noise-shader.png>] [22 <./images
+-data/dia-serial/ex-blow-balanced-screen-exts-guard-pixels-ddepth-all.png (PNG 
+copy)>] (./report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -570,27 +611,28 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2651 strings out of 495061
- 41140 string characters out of 1182621
- 99937 words of memory out of 3000000
- 5813 multiletter control sequences out of 15000+50000
+ 2693 strings out of 495061
+ 43117 string characters out of 1182621
+ 103008 words of memory out of 3000000
+ 5848 multiletter control sequences out of 15000+50000
  9121 words of font info for 32 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 36i,7n,38p,1370b,414s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,7n,38p,2435b,417s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
 xlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmsy7.pfb>
-Output written on report.pdf (17 pages, 37564194 bytes).
+type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on report.pdf (22 pages, 101509760 bytes).
 PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
+ 168 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 111 words of extra memory for PDF output out of 10000 (max. 10000000)
 

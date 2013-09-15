@@ -10,8 +10,11 @@ batch=1 # commnad line run
 pvpy=1  # pvpython or pvbatch
 rc=1
 
+#logfile='khjn-lic-ue.log'
+#time=1512960.0
+
 time=float(os.environ['PV_TIME'])
-outputImage='kh-new-jaguar-lic-b-woce.%d.png'%(int(time))
+outputImage='kh-new-jaguar-lic-ue.%d.png'%(int(time))
 logfile=os.environ['PV_LOGFILE']
 
 if batch:
@@ -55,7 +58,7 @@ r.VectorProjection='None'
 asc = GetAnimationScene()
 asc.AnimationTime = time
 
-#view
+# view
 view = GetRenderView()
 view.AlphaBitPlanes=1
 view.BackLightAzimuth=110.0
@@ -198,7 +201,7 @@ rep = Show(vf)
 rep.Representation = 'Outline'
 Render()
 
-# lut B
+# lut - ue
 lut = GetLookupTableForArray('mag-rot-Ue',1)
 lut.AllowDuplicateScalars=1
 lut.Annotations=[]
@@ -207,22 +210,22 @@ lut.ColorSpace='Lab'
 lut.Discretize=1
 lut.EnableOpacityMapping=0
 lut.HSVWrap=0
-#lut.IndexedLookup=0
+lut.IndexedLookup=0
 lut.LockScalarRange=1
-lut.NanColor=[0.4980392156862745, 0.0, 0.0]
+lut.NanColor=[0.498039215686275, 0.0, 0.0]
 lut.NumberOfTableValues=256
-lut.RGBPoints=[0.45012834668159485, 0.041672388799877925, 0.0, 0.0, 0.4562046594823599, 0.20833142595559626, 0.0, 0.0, 0.4622809722831249, 0.37500572213321126, 0.0, 0.0, 0.46835728508388996, 0.5416647592889295, 0.0, 0.0, 0.47443364573566615, 0.7083390554665446, 0.0, 0.0, 0.4805099585364312, 0.8541390096894789, 0.0, 0.0, 0.48658627133719623, 0.9374837872892348, 0.03906309605554284, 0.0, 0.49266258413796127, 1.0, 0.20833142595559626, 0.0, 0.4987388969387263, 1.0, 0.37500572213321126, 0.0, 0.5048152097394913, 1.0, 0.5416647592889295, 0.0, 0.5108915225402564, 1.0, 0.7083390554665446, 0.0, 0.5169678353410214, 1.0, 0.858808270389868, 0.03125047684443427, 0.5230441959927976, 1.0, 0.9473868925001907, 0.15625238422217136, 0.5291205087935626, 1.0, 1.0, 0.3125047684443427, 0.5351968215943277, 1.0, 1.0, 0.5624933241779202, 0.5412731343950927, 1.0, 1.0, 0.8124971389333944, 0.5458303689956665, 1.0, 1.0, 1.0]
-#lut.ScalarOpacityFunction=<paraview.servermanager.PiecewiseFunction object at 0x7beeed0>
+lut.RGBPoints=[2.03669e-07, 0.870481422140841, 0.913771267261768, 0.832898451209278, 0.000345288389788595, 0.586923018234531, 0.887861448081178, 0.934004730296788, 0.00069037311057719, 0.315831235217823, 0.776440070191501, 0.867856870374609, 0.00103546058126395, 0.183016708628977, 0.632028686961166, 0.787716487373159, 0.00138054530205255, 0.117906462195773, 0.484138246738384, 0.713832303349355, 0.00172563002284114, 0.0507209887846189, 0.335973144121462, 0.65473411154345, 0.00207071474362974, 0.0, 0.209872587167163, 0.511833371480888, 0.00241579946441833, 0.0, 0.11468680857557, 0.289356832227054, 0.00276088575264888, 0.0157473105973907, 0.00332646677347982, 0.0, 0.00310597165589369, 0.312916762035554, 0.0, 0.0, 0.00345105637668228, 0.520866712443732, 0.0, 0.0, 0.00379614109747088, 0.680109864957656, 0.152544441901274, 0.00259403372243839, 0.00414122581825947, 0.785107194628824, 0.339482719157702, 0.000793469138628214, 0.00448631328894623, 0.857358663309682, 0.522499427786679, 0.0, 0.00483139800973483, 0.910978866254673, 0.699778744182498, 0.0, 0.00517648273052342, 0.95191882200351, 0.84281681544213, 0.478538185702297, 0.0055, 1.0, 0.898039215686275, 0.101960784313725]
+#lut.ScalarOpacityFunction=<paraview.servermanager.PiecewiseFunction object at 0x8e8da50>
 lut.ScalarRangeInitialized=1.0
 lut.UseLogScale=0
 lut.VectorComponent=0
 lut.VectorMode='Magnitude'
 
-# rep B
+# rep - ue
 rep.CubeAxesVisibility=0
 #rep.ForceUseCache=0
 #rep.ForcedCacheKey=0.0
-#rep.Input=<paraview.servermanager.SQImageGhosts object at 0x7bee7d0>
+#rep.Input=<paraview.servermanager.SQVortexFilter object at 0x8dc9e10>
 rep.Representation='Surface LIC'
 #rep.RepresentationTypesInfo=['3D Glyphs', 'Outline', 'Points', 'Slice', 'Surface', 'Surface LIC', 'Surface With Edges', 'Volume', 'Wireframe']
 rep.SelectionCellFieldDataArrayName='vtkOriginalCellIds'
@@ -241,7 +244,7 @@ rep.BackfaceRepresentation='Follow Frontface'
 rep.BlockColor={}
 rep.BlockOpacity={}
 rep.BlockVisibility=[]
-rep.ColorArrayName=('POINT_DATA', 'mag-B')
+rep.ColorArrayName=('POINT_DATA', 'mag-rot-Ue')
 rep.ColorAttributeType='POINT_DATA'
 rep.ColorMode='Multiply'
 rep.CompositeStrategy='INPLACE'
@@ -276,11 +279,11 @@ rep.CustomBounds=[0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
 rep.CustomBoundsActive=[0, 0, 0]
 rep.CustomRange=[0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
 rep.CustomRangeActive=[0, 0, 0]
-#rep.DataBounds=[2.121995791e-314, 6.02091597e-316, 8.487983164e-314, 6.02091676e-316, 8.487983164e-314, 2.0]
+#rep.DataBounds=[5.7375867e-316, 5.7375638e-316, 5.7375393e-316, 5.73751636e-316, 5.73749344e-316, 5.7374705e-316]
 rep.Diffuse=1.0
 rep.DiffuseColor=[1.0, 1.0, 1.0]
 rep.EdgeColor=[0.0, 0.0, 0.5000076295109483]
-rep.EnhanceContrast='Off'
+rep.EnhanceContrast='LIC and Color'
 rep.EnhancedLIC=1
 rep.GenerateNoiseTexture=1
 rep.HighColorContrastEnhancementFactor=0.0
@@ -294,8 +297,8 @@ rep.LICIntensity=0.8
 rep.LineWidth=1.0
 rep.LookupTable=lut
 rep.LowColorContrastEnhancementFactor=0.0
-rep.LowLICContrastEnhancementFactor=0.1
-rep.MapModeBias=0.25
+rep.LowLICContrastEnhancementFactor=0.05
+rep.MapModeBias=0.05
 rep.MapScalars=1
 rep.MaskColor=[0.5, 0.5, 0.5]
 rep.MaskIntensity=0.0
@@ -312,7 +315,7 @@ rep.NoiseType='Perlin'
 rep.NonlinearSubdivisionLevel=1
 rep.NormalizeVectors=1
 rep.NumberOfNoiseLevels=1024
-rep.NumberOfSteps=800
+rep.NumberOfSteps=2000
 rep.Opacity=1.0
 rep.Orient=0
 rep.Orientation=[0.0, 0.0, 0.0]
@@ -322,13 +325,13 @@ rep.OriginalBoundsRangeActive=[0, 0, 0]
 rep.Pickable=1
 rep.PointSize=2.0
 rep.Position=[0.0, 0.0, 0.0]
-#rep.ScalarOpacityFunction=<paraview.servermanager.PiecewiseFunction object at 0x7bd0bd0>
-rep.ScalarOpacityUnitDistance=36.871094301744
+#rep.ScalarOpacityFunction=<paraview.servermanager.PiecewiseFunction object at 0x8dc9810>
+rep.ScalarOpacityUnitDistance=35.7696714357664
 rep.Scale=[1.0, 1.0, 1.0]
 rep.ScaleFactor=1636.7
 rep.ScaleMode='No Data Scaling Off'
 rep.Scaling=0
-rep.SelectInputVectors=['POINTS', 'B']
+rep.SelectInputVectors=['POINTS', 'Ue']
 rep.SelectMaskArray=''
 rep.SelectOrientationVectors=''
 rep.SelectScaleArray=''

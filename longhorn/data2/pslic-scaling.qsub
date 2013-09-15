@@ -1,0 +1,39 @@
+#PBS -S /bin/bash
+#PBS -j eo
+#PBS -V
+
+momhost=`/bin/hostname`
+#source $PV_HOME/modules-gnu.sh
+#module list
+#module swap mvapich2 mvapich2/1.4
+
+export NO_HOSTSORT=1
+
+echo "PV_HOME=$PV_HOME"
+echo "PV_NCPUS=$PV_NCPUS"
+echo "PV_NPSOCK=$PV_NPSOCK"
+echo "PV_WKD=$PV_WKD"
+echo "PV_SCRIPT=$PV_SCRIPT"
+echo "PV_PORT=$PV_PORT"
+echo "PV_TIME=$PV_TIME"
+echo "PV_COMPOSITE_STRATEGY=$PV_COMPOSITE_STRATEGY"
+echo "PV_LOGFILE=$PV_LOGFILE"
+
+#export LP_NUM_THREADS=4
+echo "LP_NUM_THREADS=$LP_NUM_THREADS"
+
+wkd=$PV_WKD/scaling-$PV_NCPUS
+mkdir -p $wkd
+cd $wkd
+
+echo "PV_NCPUS=$PV_NCPUS" >> $PV_LOGFILE
+echo "LP_NUM_THREADS=$LP_NUM_THREADS" >> $PV_LOGFILE
+
+DISP_SCRIPT=/share/sge6.2/default/pe_scripts/tacc_xrun
+IBRUN_PATH=/share/sge6.2/default/pe_scripts
+
+export DISPLAY=:0.0
+$DISP_SCRIPT $PV_HOME/bin/pvpython $PV_SCRIPT &
+sleep 30s
+
+$IBRUN_PATH/ibrun $DISP_SCRIPT $PV_HOME/bin/pvserver --reverse-connection --server-port=$PV_PORT --client-host=$momhost

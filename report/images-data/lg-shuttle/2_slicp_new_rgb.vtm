@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<VTKFile type="vtkMultiBlockDataSet" version="1.0" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+  <vtkMultiBlockDataSet>
+    <DataSet index="0" file="2_slicp_new_rgb/2_slicp_new_rgb_0.vti">
+      
+    </DataSet>
+    <DataSet index="1" file="2_slicp_new_rgb/2_slicp_new_rgb_1.vti">
+      
+    </DataSet>
+    
+  </vtkMultiBlockDataSet>
+</VTKFile>

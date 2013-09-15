@@ -1,0 +1,3 @@
+inp-disj   actual comm cost=0.522339
+bal        actual comm cost=0.753442
+inp        actual comm cost=1.46876

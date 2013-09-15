@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<VTKFile type="ImageData" version="0.1" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+  <ImageData WholeExtent="520 521 443 445 0 0" Origin="0 0 0" Spacing="1 1 1">
+    <Piece Extent="520 521 443 445 0 0">
+      <PointData>
+      </PointData>
+      <CellData>
+        <DataArray type="Float32" Name="tex" NumberOfComponents="4" format="appended" RangeMin="1.0110091219"         RangeMax="1.0713348557"         offset="0"                   />
+      </CellData>
+    </Piece>
+  </ImageData>
+  <AppendedData encoding="base64">
+   _AQAAAACAAAAgAAAAFQAAAA==eJyzOn/EjgEOGuxdYyVQ+ABbFgSC
+  </AppendedData>
+</VTKFile>

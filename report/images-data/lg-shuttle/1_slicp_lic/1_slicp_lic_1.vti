@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<VTKFile type="ImageData" version="0.1" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+  <ImageData WholeExtent="511 515 466 485 0 0" Origin="0 0 0" Spacing="1 1 1">
+    <Piece Extent="511 515 466 485 0 0">
+      <PointData>
+      </PointData>
+      <CellData>
+        <DataArray type="Float32" Name="tex" NumberOfComponents="4" format="appended" RangeMin="1.0025573597"         RangeMax="1.5685245147"         offset="0"                   />
+      </CellData>
+    </Piece>
+  </ImageData>
+  <AppendedData encoding="base64">
+   _AQAAAACAAADABAAAWAEAAA==eJxbP2W2LQMcNNgzt8jaIfPn6imi8DcKStoj82O3yqLwP19UQVEv9/8eivlz+ieh8E+VZqLof+0dgMI/ElyNYt7RIy52IBrGd/WwQ1F/lSUZhR93IhKFf/3aNRT98ZPeoJgffV4D1T0ZESj8pUuWoOgX/hqNot+lcS8KX4ZNFEX/1i1bUPQfm/4URf3F3x0ofPP/y1D4T5+koOhveh+MYv6i2TIofFe7dhT9rS0s9sj6Py/zQ1Ev+icAb3ih82dx16KY/3e/Por+qVOmoKhft1YXxf6PDYIo+pPvM6Lwly5RQdF//NgxFL5ChgeKfZPfLUHRj24/evjPqddF0V/giGre92/fUNQDww+Ff7SDHUW9e40u3vBDTz8Kj5lR1D9/9gyve9H5z7fz4dWPbh96/Dv5XkBLHy14wxs9/d3kTMKbP9HNQ+fvXW+J4n5089HjD91/AAyp41I=
+  </AppendedData>
+</VTKFile>

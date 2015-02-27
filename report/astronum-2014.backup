@@ -1,0 +1,22 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+%opening
+\title{}
+\author{Burlen Loring}
+
+%H. Karimabadi, Department of Electrical and Computer Engineering, University of California, San Diego, USA
+%V. Rortershteyn, Department of Electrical and Computer Engineering, University of California, San Diego, USA
+%W. Daughton, Los Alamos National Laboratory, USA
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The standard way to visualize streamlines of a vector field is to seed some points and integrate to trace curves that are instantaneously tangent to the velocity vector. Although useful, this approach can be cumbersome when interactively exploring a dataset. For example, the technique is inherently local and unless feature locations are know apriori it's difficult to select an effective set of seed points. An alternative technique called ”line integral convolution” or LIC, which convolves noise with a vector field producing streaking patterns that follow vector field tangents, has the advantage that a very detailed view of the streamlines over the entire computational domain is found in one step without the need to explicitly specify a set of seed points. However, the quality of the results are highly data dependent and in the case of screen space LIC on arbitrary surfaces, sensitive to a number of run time parameters such as scene lighting, camera position, orientation, screen resolution, and other view related parameters. Often LIC produces low contrast and low dynamic range images, making flow patterns difficult to discern and pseudo-coloring with scalar fields challenging. This work presents a GPGPU screen space surface LIC algorithm specifically tailored for parallel interactive visualization and exploration of large composite datasets. We present an efficient parallel load balancing and compositing algorithm that simultaneously reduces inter-process communication and redundant computation. We present new shading algorithms that address variability introduced by data dependence and produce high contrast flow patterns and high dynamic range pseudo-coloring across a wide variety of input data and viewing parameters. We present results from the analysis of a simulation of hot, turbulent, magnetized plasma.
+\end{abstract}
+
+\section{}
+
+\end{document}

@@ -4,8 +4,10 @@ import numpy as np
 import matplotlib.pyplot as mpl
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+from matplotlib.ticker import ScalarFormatter
+from matplotlib.ticker import FuncFormatter
 
-saveFig = 1
+saveFig = 0
 plotOutlier = 0
 
 khbce_gpu={}
@@ -89,6 +91,8 @@ khbce_gpu_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
 khbce_gpu_tt = np.exp(khbce_gpu_cc[0]*(khbce_gpu_xx**2) + khbce_gpu_cc[1]*khbce_gpu_xx + khbce_gpu_cc[2])
 
 
+
+
 khbce_mesa={}
 khbce_mesa[104]=32.0425
 khbce_mesa[112]=29.084
@@ -167,8 +171,11 @@ khbce_mesa_cc = np.polyfit(x,t,2)
 khbce_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
 khbce_mesa_tt = np.exp(khbce_mesa_cc[0]*(khbce_mesa_xx**2) + khbce_mesa_cc[1]*khbce_mesa_xx + khbce_mesa_cc[2])
 
-
-
+# avg speedup when using gpu
+khbce_gpu_tt_ = np.exp(khbce_gpu_cc[0]*(khbce_mesa_xx**2) + khbce_gpu_cc[1]*khbce_mesa_xx + khbce_gpu_cc[2])
+q = (khbce_mesa_tt - khbce_gpu_tt_)/khbce_mesa_tt
+khbce_gpu_su = np.sum(q)/len(khbce_mesa_xx)
+print 'khbce_gpu_su = %f, %f, %f'%(np.min(q), khbce_gpu_su, np.max(q))
 
 khuece_gpu={}
 khuece_gpu[104]=15.2368
@@ -327,32 +334,122 @@ khuece_mesa_cc = np.polyfit(x,t,2)
 khuece_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
 khuece_mesa_tt = np.exp(khuece_mesa_cc[0]*(khuece_mesa_xx**2) + khuece_mesa_cc[1]*khuece_mesa_xx + khuece_mesa_cc[2])
 
-
-mpl.loglog(np.exp(khbce_gpu_xx), khbce_gpu_tt, 'r-', linewidth=2, label='NV Quadro 5800 BCE2k')
-mpl.loglog(np.exp(khbce_mesa_xx), khbce_mesa_tt, 'b-', linewidth=2, label='Gallium llvmpipe BCE22k')
-mpl.loglog(np.exp(khuece_gpu_xx), khuece_gpu_tt, 'g-', linewidth=2, label='NV Quadro 5800 UeCE4k')
-mpl.loglog(np.exp(khuece_mesa_xx), khuece_mesa_tt, 'c-', linewidth=2, label='Gallium llvmpipe UeCE4k')
-mpl.legend(prop={'size': 9})
-mpl.loglog(khbce_gpu_x, khbce_gpu_t, 'r+', linewidth=2, label='NV Quadro 5800 BCE2k')
-mpl.loglog(khbce_mesa_x, khbce_mesa_t, 'b+', linewidth=2, label='Gallium llvmpipe BCE22k')
-mpl.loglog(khuece_gpu_x, khuece_gpu_t, 'g+', linewidth=2, label='NV Quadro 5800 UeCE4k')
-mpl.loglog(khuece_mesa_x, khuece_mesa_t, 'c+', linewidth=2, label='Gallium llvmpipe UeCE4k')
-mpl.title('CPU vs GPU Scaling 222 M Tri. Slice at 2500x1050 res.',fontweight='bold')
-mpl.ylabel('time (sec)',fontweight='bold')
-mpl.xlabel('Number of MPI Ranks',fontweight='bold')
+f = mpl.figure()
+ax = f.add_subplot(121)
+mpl.loglog(np.exp(khbce_mesa_xx), khbce_mesa_tt, 'b-', linewidth=2, label='CPU in-place')
+mpl.loglog(np.exp(khbce_gpu_xx), khbce_gpu_tt, 'r-', linewidth=2, label='GPU in-place')
+#mpl.loglog(np.exp(khuece_gpu_xx), khuece_gpu_tt, 'g-', linewidth=2, label='NV Quadro 5800 UeCE4k')
+#mpl.loglog(np.exp(khuece_mesa_xx), khuece_mesa_tt, 'c-', linewidth=2, label='Gallium llvmpipe UeCE4k')
+mpl.legend(prop={'size': 10, 'weight':'bold'})
+mpl.loglog(khbce_mesa_x, khbce_mesa_t, 'b+', linewidth=2, label='CPU in-place')
+mpl.loglog(khbce_gpu_x, khbce_gpu_t, 'r+', linewidth=2, label='GPU in-place')
+#mpl.loglog(khuece_gpu_x, khuece_gpu_t, 'g+', linewidth=2, label='NV Quadro 5800 UeCE4k')
+#mpl.loglog(khuece_mesa_x, khuece_mesa_t, 'c+', linewidth=2, label='Gallium llvmpipe UeCE4k')
+mpl.title('In-place Decomp. 2D 222 M\nTri. Slice at 2500x1050 res.',fontweight='bold', fontsize=14)
+mpl.ylabel('render time (seconds)',fontweight='bold', fontsize=12)
+mpl.xlabel('Number of MPI Ranks',fontweight='bold', fontsize=12)
 mpl.grid(True,which='both')
 mpl.grid(which='major',ls='-')
 mpl.grid(which='minor',ls=':')
-if saveFig:
-  fig = mpl.gcf()
-  mpl.savefig('scaling-ce-slice-gpu.png',dpi=200)
-  mpl.savefig('scaling-ce-slice-gpu-sm.png',dpi=80)
-else:
-  mpl.show()
+mpl.xlim([7, 600])
+mpl.ylim([8, 200])
+mpl.setp(mpl.getp(ax, 'xticklabels'), fontsize=10, weight='bold')
+mpl.setp(mpl.getp(ax, 'yticklabels'), fontsize=10, weight='bold')
+def tl(x, p):
+    return "%d"%(x)
+for axis in [ax.get_xaxis(), ax.get_yaxis()]:
+  axis.set_major_formatter(FuncFormatter(tl))
+#bbox_props = dict(boxstyle='round,pad=0.3', fc='w', ec='b', lw=2)
+#t = ax.text(30, 90, 'CPU', bbox=bbox_props, fontweight='bold', color='b')
+#if saveFig:
+#  fig = mpl.gcf()
+#  mpl.savefig('scaling-ce-slice-gpu.png',dpi=200)
+#  mpl.savefig('scaling-ce-slice-gpu-sm.png',dpi=80)
+#else:
+#  mpl.show()
+
 
 
 
 # compositor scaling
+pripd_mesa={}
+pripd_mesa[104]=6.80178
+pripd_mesa[112]=6.71193
+pripd_mesa[120]=6.78673
+pripd_mesa[128]=6.54333
+pripd_mesa[136]=6.59083
+pripd_mesa[144]=6.22489
+pripd_mesa[152]=5.97461
+pripd_mesa[16]=16.9717
+pripd_mesa[160]=5.76116
+pripd_mesa[168]=5.76604
+pripd_mesa[176]=5.59598
+pripd_mesa[184]=5.57516
+pripd_mesa[192]=5.98787
+pripd_mesa[200]=5.74258
+pripd_mesa[208]=5.61816
+pripd_mesa[216]=5.678
+pripd_mesa[224]=5.75246
+pripd_mesa[232]=5.39838
+pripd_mesa[24]=14.3177
+pripd_mesa[240]=5.33441
+pripd_mesa[248]=5.25786
+pripd_mesa[256]=5.31479
+pripd_mesa[264]=5.2702
+pripd_mesa[272]=5.18137
+pripd_mesa[280]=5.13818
+pripd_mesa[288]=5.27303
+pripd_mesa[296]=5.18375
+pripd_mesa[304]=5.15316
+pripd_mesa[312]=5.12089
+pripd_mesa[32]=11.5151
+pripd_mesa[320]=5.13908
+pripd_mesa[328]=5.32752
+pripd_mesa[336]=5.25351
+pripd_mesa[344]=5.00962
+# pripd_mesa[352]=14.335
+pripd_mesa[360]=5.05639
+pripd_mesa[368]=5.05
+pripd_mesa[376]=4.85058
+pripd_mesa[384]=5.08312
+pripd_mesa[392]=4.8372
+pripd_mesa[40]=10.7818
+pripd_mesa[400]=5.05626
+pripd_mesa[408]=4.88047
+pripd_mesa[416]=4.87881
+pripd_mesa[424]=4.81901
+pripd_mesa[432]=4.89145
+pripd_mesa[440]=4.79828
+pripd_mesa[448]=4.75134
+pripd_mesa[456]=4.66365
+# pripd_mesa[464]=8.35888
+pripd_mesa[472]=4.87717
+pripd_mesa[48]=9.58444
+pripd_mesa[480]=4.5743
+pripd_mesa[488]=4.5605
+#pripd_mesa[496]=9.73865 # ol
+pripd_mesa[504]=4.7795
+pripd_mesa[512]=4.69257
+pripd_mesa[56]=8.71484
+pripd_mesa[64]=8.34135
+pripd_mesa[72]=8.15055
+pripd_mesa[80]=7.50806
+pripd_mesa[88]=7.11525
+pripd_mesa[96]=6.87599
+
+pripd_mesa_x=[]
+pripd_mesa_t=[]
+for k in sorted(pripd_mesa.keys()):
+  pripd_mesa_x.append(k)
+  pripd_mesa_t.append(pripd_mesa[k])
+
+# fit a curve in log space
+x = np.log(np.array(pripd_mesa_x))
+t = np.log(np.array(pripd_mesa_t))
+pripd_mesa_cc = np.polyfit(x,t,2)
+pripd_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
+pripd_mesa_tt = np.exp(pripd_mesa_cc[0]*(pripd_mesa_xx**2) + pripd_mesa_cc[1]*pripd_mesa_xx + pripd_mesa_cc[2])
+
 pripd_gpu={}
 pripd_gpu[104]=2.44978
 pripd_gpu[112]=2.55201
@@ -432,84 +529,92 @@ pripd_gpu_cc = np.polyfit(x,t,2)
 pripd_gpu_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
 pripd_gpu_tt = np.exp(pripd_gpu_cc[0]*(pripd_gpu_xx**2) + pripd_gpu_cc[1]*pripd_gpu_xx + pripd_gpu_cc[2])
 
+# avg speedup when using gpu
+pripd_gpu_tt_ = np.exp(pripd_gpu_cc[0]*(pripd_mesa_xx**2) + pripd_gpu_cc[1]*pripd_mesa_xx + pripd_gpu_cc[2])
+q = (pripd_mesa_tt - pripd_gpu_tt_)/pripd_mesa_tt
+pripd_gpu_su = np.sum(q)/len(pripd_mesa_xx)
+print 'pripd_gpu_su = %f, %f, %f'%(np.min(q), pripd_gpu_su, np.max(q))
 
-pripd_mesa={}
-pripd_mesa[104]=6.80178
-pripd_mesa[112]=6.71193
-pripd_mesa[120]=6.78673
-pripd_mesa[128]=6.54333
-pripd_mesa[136]=6.59083
-pripd_mesa[144]=6.22489
-pripd_mesa[152]=5.97461
-pripd_mesa[16]=16.9717
-pripd_mesa[160]=5.76116
-pripd_mesa[168]=5.76604
-pripd_mesa[176]=5.59598
-pripd_mesa[184]=5.57516
-pripd_mesa[192]=5.98787
-pripd_mesa[200]=5.74258
-pripd_mesa[208]=5.61816
-pripd_mesa[216]=5.678
-pripd_mesa[224]=5.75246
-pripd_mesa[232]=5.39838
-pripd_mesa[24]=14.3177
-pripd_mesa[240]=5.33441
-pripd_mesa[248]=5.25786
-pripd_mesa[256]=5.31479
-pripd_mesa[264]=5.2702
-pripd_mesa[272]=5.18137
-pripd_mesa[280]=5.13818
-pripd_mesa[288]=5.27303
-pripd_mesa[296]=5.18375
-pripd_mesa[304]=5.15316
-pripd_mesa[312]=5.12089
-pripd_mesa[32]=11.5151
-pripd_mesa[320]=5.13908
-pripd_mesa[328]=5.32752
-pripd_mesa[336]=5.25351
-pripd_mesa[344]=5.00962
-# pripd_mesa[352]=14.335
-pripd_mesa[360]=5.05639
-pripd_mesa[368]=5.05
-pripd_mesa[376]=4.85058
-pripd_mesa[384]=5.08312
-pripd_mesa[392]=4.8372
-pripd_mesa[40]=10.7818
-pripd_mesa[400]=5.05626
-pripd_mesa[408]=4.88047
-pripd_mesa[416]=4.87881
-pripd_mesa[424]=4.81901
-pripd_mesa[432]=4.89145
-pripd_mesa[440]=4.79828
-pripd_mesa[448]=4.75134
-pripd_mesa[456]=4.66365
-# pripd_mesa[464]=8.35888
-pripd_mesa[472]=4.87717
-pripd_mesa[48]=9.58444
-pripd_mesa[480]=4.5743
-pripd_mesa[488]=4.5605
-#pripd_mesa[496]=9.73865 # ol
-pripd_mesa[504]=4.7795
-pripd_mesa[512]=4.69257
-pripd_mesa[56]=8.71484
-pripd_mesa[64]=8.34135
-pripd_mesa[72]=8.15055
-pripd_mesa[80]=7.50806
-pripd_mesa[88]=7.11525
-pripd_mesa[96]=6.87599
 
-pripd_mesa_x=[]
-pripd_mesa_t=[]
-for k in sorted(pripd_mesa.keys()):
-  pripd_mesa_x.append(k)
-  pripd_mesa_t.append(pripd_mesa[k])
+
+
+prip_mesa={}
+prip_mesa[104]=8.53869
+prip_mesa[112]=8.5428
+prip_mesa[120]=8.51903
+prip_mesa[128]=8.57604
+prip_mesa[136]=7.73217
+prip_mesa[144]=8.32623
+prip_mesa[152]=8.34585
+prip_mesa[16]=24.6196
+prip_mesa[160]=7.69961
+prip_mesa[168]=7.93408
+prip_mesa[176]=7.37595
+prip_mesa[184]=6.8086
+prip_mesa[192]=7.04259
+prip_mesa[200]=7.03536
+prip_mesa[208]=6.9785
+prip_mesa[216]=6.6776
+prip_mesa[224]=6.91348
+prip_mesa[232]=7.06622
+prip_mesa[24]=20.0398
+prip_mesa[240]=6.17461
+prip_mesa[248]=6.1135
+prip_mesa[256]=6.39992
+prip_mesa[264]=6.20855
+prip_mesa[272]=5.95947
+prip_mesa[280]=6.53734
+prip_mesa[288]=5.98882
+prip_mesa[296]=5.82849
+prip_mesa[304]=6.07203
+prip_mesa[312]=6.09151
+prip_mesa[32]=16.4377
+prip_mesa[320]=5.69259
+prip_mesa[328]=5.87208
+prip_mesa[336]=5.98723
+prip_mesa[344]=5.83367
+prip_mesa[352]=5.50614
+prip_mesa[360]=5.6009
+prip_mesa[368]=5.70119
+prip_mesa[376]=5.38846
+prip_mesa[384]=5.35052
+prip_mesa[392]=5.46811
+prip_mesa[40]=14.9472
+prip_mesa[400]=5.49201
+prip_mesa[408]=5.45418
+prip_mesa[416]=5.39674
+prip_mesa[424]=5.45973
+prip_mesa[432]=5.12994
+prip_mesa[440]=5.01575
+prip_mesa[448]=5.14443
+prip_mesa[456]=5.04878
+#prip_mesa[464]=9.16913 # ol
+prip_mesa[472]=5.06233
+prip_mesa[48]=12.6223
+#prip_mesa[480]=8.84682 # ol
+prip_mesa[488]=4.91487
+prip_mesa[496]=4.98957
+prip_mesa[504]=5.00703
+prip_mesa[512]=5.11834
+prip_mesa[56]=11.8381
+prip_mesa[64]=11.5226
+prip_mesa[72]=10.9887
+prip_mesa[80]=10.3413
+prip_mesa[88]=9.80519
+prip_mesa[96]=9.76479
+
+prip_mesa_x=[]
+prip_mesa_t=[]
+for k in sorted(prip_mesa.keys()):
+  prip_mesa_x.append(k)
+  prip_mesa_t.append(prip_mesa[k])
 
 # fit a curve in log space
-x = np.log(np.array(pripd_mesa_x))
-t = np.log(np.array(pripd_mesa_t))
-pripd_mesa_cc = np.polyfit(x,t,2)
-pripd_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
-pripd_mesa_tt = np.exp(pripd_mesa_cc[0]*(pripd_mesa_xx**2) + pripd_mesa_cc[1]*pripd_mesa_xx + pripd_mesa_cc[2])
+x = np.log(np.array(prip_mesa_x))
+t = np.log(np.array(prip_mesa_t))
+prip_mesa_cc = np.polyfit(x,t,2)
+prip_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
+prip_mesa_tt = np.exp(prip_mesa_cc[0]*(prip_mesa_xx**2) + prip_mesa_cc[1]*prip_mesa_xx + prip_mesa_cc[2])
 
 prip_gpu={}
 prip_gpu[104]=2.85369
@@ -590,108 +695,59 @@ prip_gpu_cc = np.polyfit(x,t,2)
 prip_gpu_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
 prip_gpu_tt = np.exp(prip_gpu_cc[0]*(prip_gpu_xx**2) + prip_gpu_cc[1]*prip_gpu_xx + prip_gpu_cc[2])
 
-prip_mesa={}
-prip_mesa[104]=8.53869
-prip_mesa[112]=8.5428
-prip_mesa[120]=8.51903
-prip_mesa[128]=8.57604
-prip_mesa[136]=7.73217
-prip_mesa[144]=8.32623
-prip_mesa[152]=8.34585
-prip_mesa[16]=24.6196
-prip_mesa[160]=7.69961
-prip_mesa[168]=7.93408
-prip_mesa[176]=7.37595
-prip_mesa[184]=6.8086
-prip_mesa[192]=7.04259
-prip_mesa[200]=7.03536
-prip_mesa[208]=6.9785
-prip_mesa[216]=6.6776
-prip_mesa[224]=6.91348
-prip_mesa[232]=7.06622
-prip_mesa[24]=20.0398
-prip_mesa[240]=6.17461
-prip_mesa[248]=6.1135
-prip_mesa[256]=6.39992
-prip_mesa[264]=6.20855
-prip_mesa[272]=5.95947
-prip_mesa[280]=6.53734
-prip_mesa[288]=5.98882
-prip_mesa[296]=5.82849
-prip_mesa[304]=6.07203
-prip_mesa[312]=6.09151
-prip_mesa[32]=16.4377
-prip_mesa[320]=5.69259
-prip_mesa[328]=5.87208
-prip_mesa[336]=5.98723
-prip_mesa[344]=5.83367
-prip_mesa[352]=5.50614
-prip_mesa[360]=5.6009
-prip_mesa[368]=5.70119
-prip_mesa[376]=5.38846
-prip_mesa[384]=5.35052
-prip_mesa[392]=5.46811
-prip_mesa[40]=14.9472
-prip_mesa[400]=5.49201
-prip_mesa[408]=5.45418
-prip_mesa[416]=5.39674
-prip_mesa[424]=5.45973
-prip_mesa[432]=5.12994
-prip_mesa[440]=5.01575
-prip_mesa[448]=5.14443
-prip_mesa[456]=5.04878
-#prip_mesa[464]=9.16913 # ol
-prip_mesa[472]=5.06233
-prip_mesa[48]=12.6223
-#prip_mesa[480]=8.84682 # ol
-prip_mesa[488]=4.91487
-prip_mesa[496]=4.98957
-prip_mesa[504]=5.00703
-prip_mesa[512]=5.11834
-prip_mesa[56]=11.8381
-prip_mesa[64]=11.5226
-prip_mesa[72]=10.9887
-prip_mesa[80]=10.3413
-prip_mesa[88]=9.80519
-prip_mesa[96]=9.76479
+# avg speedup when using gpu
+prip_gpu_tt_ = np.exp(prip_gpu_cc[0]*(prip_mesa_xx**2) + prip_gpu_cc[1]*prip_mesa_xx + prip_gpu_cc[2])
+q = (prip_mesa_tt - prip_gpu_tt_)/prip_mesa_tt
+prip_gpu_su = np.sum(q)/len(prip_mesa_xx)
+print 'prip_gpu_su = %f, %f, %f'%(np.min(q), prip_gpu_su, np.max(q))
 
-prip_mesa_x=[]
-prip_mesa_t=[]
-for k in sorted(prip_mesa.keys()):
-  prip_mesa_x.append(k)
-  prip_mesa_t.append(prip_mesa[k])
+# avg speed up from ipd gpu
+q = (prip_gpu_tt - pripd_gpu_tt)/prip_gpu_tt
+prip_ipd_su_gpu = np.sum(q)/len(prip_gpu_tt)
+print 'prip_ipd_su_gpu = %f, %f, %f'%(np.min(q), prip_ipd_su_gpu, np.max(q))
 
-# fit a curve in log space
-x = np.log(np.array(prip_mesa_x))
-t = np.log(np.array(prip_mesa_t))
-prip_mesa_cc = np.polyfit(x,t,2)
-prip_mesa_xx = np.arange(np.min(x), np.max(x)+0.1, 0.1)
-prip_mesa_tt = np.exp(prip_mesa_cc[0]*(prip_mesa_xx**2) + prip_mesa_cc[1]*prip_mesa_xx + prip_mesa_cc[2])
+# avg speed up from ipd cpu
+q = (prip_mesa_tt - pripd_mesa_tt)/prip_mesa_tt
+prip_ipd_su_mesa = np.sum(q)/len(prip_mesa_tt)
+print 'prip_ipd_su_mesa = %f, %f, %f'%(np.min(q), prip_ipd_su_mesa, np.max(q))
 
-mpl.figure()
-mpl.loglog(np.exp(prip_gpu_xx), prip_gpu_tt, 'r-', linewidth=2, label='NV Quadro 5800 INPLACE')
-mpl.loglog(np.exp(pripd_gpu_xx), pripd_gpu_tt, 'g-', linewidth=2, label='NV Quadro 5800 INPLACE_DISJOINT')
-mpl.loglog(np.exp(prip_mesa_xx), prip_mesa_tt, 'b-', linewidth=2, label='Gallium llvmpipe INPLACE')
-mpl.loglog(np.exp(pripd_mesa_xx), pripd_mesa_tt, 'c-', linewidth=2, label='Gallium llvmpipe INPLACE_DISJOINT')
-mpl.legend(prop={'size': 9})
+#f = mpl.figure()
+ax = f.add_subplot(122)
+mpl.loglog(np.exp(prip_mesa_xx), prip_mesa_tt, 'b-', linewidth=2, label='CPU in-place')
+mpl.loglog(np.exp(pripd_mesa_xx), pripd_mesa_tt, 'c-', linewidth=2, label='CPU disjoint')
+mpl.loglog(np.exp(prip_gpu_xx), prip_gpu_tt, 'r-', linewidth=2, label='GPU in-place')
+mpl.loglog(np.exp(pripd_gpu_xx), pripd_gpu_tt, 'g-', linewidth=2, label='GPU disjoint')
+mpl.legend(prop={'size': 10, 'weight':'bold'})
 
-mpl.loglog(prip_gpu_x, prip_gpu_t, 'r+', linewidth=2, label='NV Quadro 5800 INPLACE')
-mpl.loglog(pripd_gpu_x, pripd_gpu_t, 'g+', linewidth=2, label='NV Quadro 5800 INPLACE_DISJOINT')
-mpl.loglog(prip_mesa_x, prip_mesa_t, 'b+', linewidth=2, label='Gallium llvmpipe INPLACE')
-mpl.loglog(pripd_mesa_x, pripd_mesa_t, 'c+', linewidth=2, label='Gallium llvmpipe INPLACE_DISJOINT')
+mpl.loglog(prip_mesa_x, prip_mesa_t, 'b+', linewidth=2, label='CPU in-place')
+mpl.loglog(pripd_mesa_x, pripd_mesa_t, 'c+', linewidth=2, label='CPU disjoint')
+mpl.loglog(prip_gpu_x, prip_gpu_t, 'r+', linewidth=2, label='GPU in-place')
+mpl.loglog(pripd_gpu_x, pripd_gpu_t, 'g+', linewidth=2, label='GPU disjoint')
 
-mpl.title('CPU vs GPU Scaling of Compositing Methods\n1024^3 box at 1215x1090 res',fontweight='bold')
-mpl.ylabel('seconds',fontweight='bold')
-mpl.xlabel('Number of MPI Ranks',fontweight='bold')
+mpl.title('In-place vs Disjoint Decomp. 3D\n1024^3 box at 1215x1090 res',fontweight='bold', fontsize=14)
+mpl.ylabel('render time (seconds)',fontweight='bold', fontsize=12)
+mpl.xlabel('Number of MPI Ranks',fontweight='bold', fontsize=12)
 mpl.grid(True,which='both')
 mpl.grid(which='major',ls='-')
 mpl.grid(which='minor',ls=':')
 #mpl.grid()
 mpl.subplots_adjust(top=0.85)
+mpl.xlim([7, 600])
+mpl.ylim([1, 30])
+mpl.setp(mpl.getp(ax, 'xticklabels'), fontsize=10, weight='bold')
+mpl.setp(mpl.getp(ax, 'yticklabels'), fontsize=10, weight='bold')
+for axis in [ax.get_xaxis(), ax.get_yaxis()]:
+  axis.set_major_formatter(FuncFormatter(tl))
+f.set_size_inches(12, 4)
+#f.suptitle('CPU vs GPU Scaling')
+f.subplots_adjust(bottom=0.15)
+
 if saveFig:
   fig = mpl.gcf()
-  mpl.savefig('scaling-composite-cube-gpu.png',dpi=200)
-  mpl.savefig('scaling-composite-cube-gpu-sm.png',dpi=80)
+  #mpl.savefig('scaling-composite-cube-gpu.png',dpi=200)
+  #mpl.savefig('scaling-composite-cube-gpu-sm.png',dpi=80)
+  mpl.savefig('astronum-2014.png',dpi=200)
+  mpl.savefig('astronum-2014-sm.png',dpi=80)
 else:
   mpl.show()
 

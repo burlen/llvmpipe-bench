@@ -17,6 +17,13 @@
 The standard way to visualize streamlines of a vector field is to seed some points and integrate to trace curves that are instantaneously tangent to the velocity vector. Although useful, this approach can be cumbersome when interactively exploring a dataset. For example, the technique is inherently local and unless feature locations are know apriori it's difficult to select an effective set of seed points. An alternative technique called ”line integral convolution” or LIC, which convolves noise with a vector field producing streaking patterns that follow vector field tangents, has the advantage that a very detailed view of the streamlines over the entire computational domain is found in one step without the need to explicitly specify a set of seed points. However, the technique is computationally expensive and the quality of the results are highly data dependent. In the case of screen space LIC on arbitrary surfaces, which is fast enough for interactive use, the results are highly sensitive to a number of run time parameters such as scene lighting, camera position, orientation, screen resolution, and other view related parameters. As a result of these issues the technique often produces low contrast and low dynamic range images, making flow patterns difficult to discern and pseudo-coloring with scalar fields challenging. This work presents a GPGPU screen space surface LIC algorithm specifically tailored for the parallel interactive visualization and exploration of large composite datasets. Interactivity is achieved through an efficient parallel load balancing and compositing algorithm that simultaneously reduces inter-process communication and redundant computation. New shading algorithms that address variability introduced by data dependence and produce high contrast flow patterns and high dynamic range pseudo-coloring across a wide variety of input data and viewing parameters are presented. We show results from the visual analysis of a PIC simulation of turbulence in a hot magnetized plasma.
 \end{abstract}
 
-\section{}
+\section{Introduction}
+\section{Algorithm Stages}
+\section{LIC Pseudocolor Plots}
+\section{Parallelization}
+\section{Scaling Study}
+\section{Application to Ionized Plasma Simulation}
+
+
 
 \end{document}
